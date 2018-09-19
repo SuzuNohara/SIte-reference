@@ -1,0 +1,235 @@
+.logo{
+    width: 40px;
+    height: 40px;
+    background-color: snow;
+}
+
+.title-bar{
+    height: 6.5vh;
+    z-index: 0;
+    padding: 0px;
+    padding-left: 2.5vw;
+    padding-right: 2.5vw;
+    width: 100vw;
+    margin: 0px;
+    display: inline-block;
+}
+
+.title-item{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    float: left;
+    height: 6.5vh;
+    font-size: 2.5vh;
+}
+
+.font-light{
+    color: #fff;
+}
+
+.background-dark{
+    background-color: #2b3d51;
+}
+
+.page-title{
+    position: relative;
+    margin: 0px;
+    height: 7vh;
+    font-size: 4vh;
+    z-index: 1;
+    width: auto;
+}
+
+.sys-simbol{
+    font-size: 3vh;
+}
+
+.option-bar{
+    height: 6.5vh;
+    z-index: 0;
+    padding: 0px;
+    margin: 0px;
+    width: 100vw;
+    display: inline-block;
+    padding-left: 10vw;
+    margin-top: -0.5vh;
+}
+
+.font-dark{
+    color: #1a1e27;
+}
+
+.background-light{
+    background-color: #fff;
+}
+
+.option-item{
+    height: 6.5vh;
+    font-size: 2vh;
+    color: #2b3d51;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    float: left;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    cursor: pointer;
+}
+
+.option-item-sm{
+    height: 6.5vh;
+    font-size: 2vh;
+    width: 100vw;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    color: #2b3d51;
+}
+
+.cont-inline{
+    display: inline;
+}
+
+.option-item:hover{
+    background-color: #f5f5f5;
+}
+
+.option-item-sm:hover{
+    background-color: #f5f5f5;
+}
+
+.option-menu-sm{
+    text-align: center;
+    height: 6.5vh;
+    background-color: #fff;
+    font-size: 4vh;
+    padding-top: 0.9vh;
+    margin-top: -1vh;
+}
+
+.option-menu-sm:hover{
+    background-color: #f5f5f5;
+}
+
+.datos-content{
+    height: 86vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.option-item-active{
+    background-color: #eee;
+}
+
+td{
+    height: 9vh;
+    position: relative;
+}
+
+.tdnumber{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding-top: 1px;
+    padding-right: 6px;
+    padding-left: 6px;
+    padding-bottom: 1px;
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 1px;
+    border-top: none;
+    border-right: none;
+}
+
+.event{
+    margin-left: 5px;
+    margin-bottom: 5px;
+    background-color: rgba(164, 20, 20, 0.879);
+    width: 15px;
+    height: 15px;
+    border: none;
+    border-radius: 7.5px;
+}
+
+.event-1{
+    position: relative;
+    display: inline-block;
+}
+
+.mexico{
+    background-color: #DC143C;
+}
+
+.panama{
+    background-color: #8B4500;
+}
+
+.guatemala{
+    background-color: #8B008B;
+}
+
+.honduras{
+    background-color: #000080;
+}
+
+.nicaragua{
+    background-color: #1E90FF;
+}
+
+.salvador{
+    background-color: #00CD66;
+}
+
+.dominicana{
+    background-color: #1E1E1E;
+}
+
+.costarica{
+    background-color: #EE7600;
+}
+
+.todos{
+    background-color: #8B8682;
+}
+
+.cell{
+    border-color: #ccc;
+    border-style: solid;
+    border-width: thin;
+    width: 8.4vw;
+    position: relative;
+    display: inline-block;
+    margin: 0px;
+    margin-bottom: 0px;
+    margin-top: -1px;
+    margin-right: -1px;
+    margin-left: 0px;
+    height: 9vh;
+}
+
+.balls-container{
+    padding-top: 5px;
+    position: relative;
+    height: auto;
+    width: 6vw;
+}
+
+.float-tool{
+    position: absolute; 
+    border-radius: 1.5vw;
+    bottom: 2vh;
+    right: 2vw; 
+    width: 3vw; 
+    height: 3vw; 
+    font-size: 1.8vw;
+    padding: 0.65vw;
+    background-color: #2b3d51; 
+    color: white;
+}
