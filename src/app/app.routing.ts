@@ -12,6 +12,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
+    { path: '', redirectTo: '/inicio', pathMatch: 'full' },
     { path: 'alta', component: AltaComponent },
     { path: 'conectado', component: ConexionesComponent },
     { path: 'estado', component: EstadoComponent },
@@ -20,7 +21,8 @@ const appRoutes: Routes = [
     { path: 'prioridad', component: PrioridadComponent},
     { path: 'tecnologia', component: TecnologiaComponent },
     { path: 'inicio', component: InicioComponent},
-    { path: 'login', component: LoginComponent }
+    { path: 'login', component: LoginComponent },
+    { path: '**', redirectTo: '/inicio'}
 ];
 
 export const appRoutingProviders: any[] = [];

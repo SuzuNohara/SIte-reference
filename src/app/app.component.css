@@ -50,12 +50,12 @@
 .option-bar{
     height: 6.5vh;
     z-index: 0;
-    padding: 0px;
-    margin: 0px;
+    padding: 0px !important;
+    margin: 0px !important;
     width: 100vw;
     display: inline-block;
-    padding-left: 10vw;
-    margin-top: -0.5vh;
+    padding-left: 5vw !important;
+    margin-top: -1vh !important;
 }
 
 .font-dark{
