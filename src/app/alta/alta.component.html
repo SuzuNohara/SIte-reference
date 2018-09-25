@@ -1,3 +1,47 @@
-<p>
-  alta works!
-</p>
+<div class="container maincontent">
+  <h2 class="display-3">Alta de sitios &nbsp;<small class="text-muted"><button class="btn btn-sm btn-outline-dark">?</button></small>
+  </h2>
+  <hr>
+  <div class="container">
+    <div class="row">
+      <div class="col-5">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">CRQ</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="CRQ">
+            <div class="valid-feedback">
+              CRQ valido!
+            </div>
+            <div class="invalid-feedback">
+              CRQ invalido!
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Archivo</label>
+          <div class="col-sm-10">
+            <input type="file" class="form-control file-input" placeholder="CRQ">
+            <div class="valid-feedback">
+              Archivo valido!
+            </div>
+            <div class="invalid-feedback">
+              Archivo invalido!
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-12 text-right">
+            <button (click)="cargaArchivos()" class="btn btn-outline-dark btn-sm">Alta de sitios</button>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="console">
+          <hr>
+          <app-alta-analizador-archivo></app-alta-analizador-archivo>
+          <!--<ng-template ad-host></ng-template>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -16,6 +16,7 @@ import { PrioridadComponent } from './prioridad/prioridad.component';
 import { HttpModule } from '@angular/http';
 import { InicioComponent } from './inicio/inicio.component';
 import { LoginComponent } from './login/login.component';
+import { AltaAnalizadorArchivoComponent } from './alta-analizador-archivo/alta-analizador-archivo.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { LoginComponent } from './login/login.component';
     GruposComponent,
     PrioridadComponent,
     InicioComponent,
-    LoginComponent
+    LoginComponent,
+    AltaAnalizadorArchivoComponent
   ],
   imports: [
     BrowserModule,

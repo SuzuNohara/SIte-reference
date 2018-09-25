@@ -6,10 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-  file:any;
+  //title = 'app';
+  //file:any;
 
-  fileChanged(e) {
+  /*fileChanged(e) {
       this.file = e.target.files[0];
       console.log('capturado');
       let fileReader = new FileReader();
@@ -17,5 +17,5 @@ export class AppComponent {
         console.log(fileReader.result);
       }
       fileReader.readAsText(this.file);
-  }
+  }*/
 }
