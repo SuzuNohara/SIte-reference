@@ -1,12 +1,8 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
   production: false,
-  URL_INSERT: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDInsert?',
-  URL_UPDATE: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDUpdate?',
-  URL_SELECT: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDSelect?',
+  URL_INSERT: 'http://remedycontrolq.oymcloud.americamovil.com:8080/Remedy/servicios/RMDInsert?',
+  URL_UPDATE: 'http://remedycontrolq.oymcloud.americamovil.com:8080/Remedy/servicios/RMDUpdate?',
+  URL_SELECT: 'http://remedycontrolq.oymcloud.americamovil.com:8080/Remedy/servicios/RMDSelect?',
   MAIL_SERVICE: 'http://10.119.155.72:8080/blankServices/mail.jsp',
 
   FORM_GRUP_ASS: 'CTM:Support Group Association',
@@ -24,11 +20,3 @@ export const environment = {
 
   QUERY_GRUP: '\'1000000079\'=\'(SGP000000000344,SGP000000000397,SGP000000000453, SGP000000000502, SGP000000000534)\' \'7\'=\'1\''
 };
-
-/*
- * In development mode, to ignore zone related error stack frames such as
- * `zone.run`, `zoneDelegate.invokeTask` for easier debugging, you can
- * import the following file, but please comment it out in production mode
- * because it will have performance impact when throw error
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
