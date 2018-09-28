@@ -9,6 +9,8 @@ export const environment = {
   URL_SELECT: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDSelect?',
   MAIL_SERVICE: 'http://10.119.155.72:8080/blankServices/mail.jsp',
 
+  SISTEMA: 'SITIOS',
+
   FORM_GRUP_ASS: 'CTM:Support Group Association',
   FORM_GRUP: 'CTM:Support Group',
   FORM_AMX: 'AMX:TipoSitio_Site-EP',

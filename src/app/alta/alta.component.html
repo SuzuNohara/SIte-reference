@@ -36,10 +36,19 @@
         </div>
       </div>
       <div class="col">
-        <div class="console">
-          <hr>
-          <app-alta-analizador-archivo></app-alta-analizador-archivo>
-          <!--<ng-template ad-host></ng-template>-->
+        LOG:
+        <div class="console">          
+          <div *ngIf="validaCR">
+            {{ validaCRtext }}
+            <div class="progress">
+              <div [ngClass]="validaCRclass" role="progressbar" [ngStyle]="{ 'width': validaCRcarga + '%' }" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <hr>
+          </div>
+          <div *ngIf="validaDoc">
+            <app-alta-analizador-archivo></app-alta-analizador-archivo>
+            <hr>
+          </div>
         </div>
       </div>
     </div>
