@@ -8,7 +8,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">CRQ</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="CRQ">
+            <input type="text" [(ngModel)]="crqModel" [ngClass]="crqClass" placeholder="CRQ">
             <div class="valid-feedback">
               CRQ valido!
             </div>
@@ -20,7 +20,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Archivo</label>
           <div class="col-sm-10">
-            <input type="file" class="form-control file-input" placeholder="CRQ">
+            <input type="file" [ngClass]="fileClass" (change)="fileChargue($event)">
             <div class="valid-feedback">
               Archivo valido!
             </div>

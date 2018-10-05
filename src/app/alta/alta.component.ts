@@ -11,26 +11,41 @@ import * as $ from 'jquery';
 })
 export class AltaComponent implements OnInit {
 
-  @ViewChild(AltaAnalizadorArchivoComponent) analizador: AltaAnalizadorArchivoComponent;
-
+  crqModel: string;
   validaCR: boolean;
   validaCRclass: string;
   validaCRtext: string;
   validaCRcarga: number;
+  crqClass:string;
+  fileClass:string;
+  file:any;
+  archivo: string;
 
   validaDoc: boolean;
 
-  constructor( altaServ: AltaServiceService) {
+  @ViewChild(AltaAnalizadorArchivoComponent) analizador: AltaAnalizadorArchivoComponent;
+
+  constructor(private altaServ: AltaServiceService) {
     this.validaCR = false;
     this.validaCRclass = 'progress-bar bg-dark';
     this.validaCRtext = 'Validando CRQ...';
     this.validaCRcarga = 0;
-    
+    this.crqClass = 'form-control';
+    this.fileClass = 'form-control file-input';
     this.validaDoc = false;
   }
 
-  ngOnInit() {
-    
+  ngOnInit() {}
+
+  fileChargue(e) {
+      this.file = e.target.files[0];
+      console.log('capturado');
+      let fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        this.archivo = fileReader.result.toString();
+        this.altaServ.validarArchivo(this.archivo);
+      }
+      fileReader.readAsText(this.file);
   }
 
   cargaArchivos():void{

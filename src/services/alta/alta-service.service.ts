@@ -6,10 +6,18 @@ import { RcontrolService } from '../rcontrol/rcontrol.service';
 })
 export class AltaServiceService {
 
-  constructor(rcontrol: RcontrolService){}
+  constructor(private rcontrol: RcontrolService){}
   
   validarCRQ(CRQ: string): boolean{
-    
+    let select : rmdSelect;
+    select.columnas = ['','',''];
+    //this.rcontrol.select();
     return true;
+  }
+
+  validarArchivo(archivo: string): boolean{
+    let retorno:boolean = true;
+    
+    return retorno;
   }
 }
