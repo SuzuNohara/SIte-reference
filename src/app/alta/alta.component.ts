@@ -12,12 +12,19 @@ import * as $ from 'jquery';
 export class AltaComponent implements OnInit {
 
   crqModel: string;
+  crqClass:string;
+
   validaCR: boolean;
   validaCRclass: string;
   validaCRtext: string;
   validaCRcarga: number;
-  crqClass:string;
+
   fileClass:string;
+  validaArcclass: string;
+  validaArctext: string;
+  validaArccarga: number;
+  validaArcLog: string;
+
   file:any;
   archivo: string;
 
@@ -33,19 +40,37 @@ export class AltaComponent implements OnInit {
     this.crqClass = 'form-control';
     this.fileClass = 'form-control file-input';
     this.validaDoc = false;
+    this.validaArcclass = 'progress-bar bg-dark';
+    this.validaArctext = 'Validando documento...';
+    this.validaArccarga = 0;
   }
 
   ngOnInit() {}
 
   fileChargue(e) {
-      this.file = e.target.files[0];
-      console.log('capturado');
-      let fileReader = new FileReader();
-      fileReader.onload = (e) => {
-        this.archivo = fileReader.result.toString();
-        this.altaServ.validarArchivo(this.archivo);
+    this.fileClass = 'form-control file-input';
+    this.validaArcclass = 'progress-bar bg-dark';
+    this.validaArctext = 'Validando documento...';
+    this.validaArccarga = 0;
+    
+    this.file = e.target.files[0];
+    this.validaDoc = true;
+    let fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      this.validaArccarga = 100;
+      this.archivo = fileReader.result.toString();
+      if(this.altaServ.validarArchivo(this.archivo)){
+        this.validaArctext = 'El documento es valido';
+        this.validaArcclass = 'progress-bar bg-success';
+        this.fileClass = 'form-control file-input is-valid';
+      }else{
+        this.validaArctext = 'El documento no es valido';
+        this.validaArcclass = 'progress-bar bg-danger';
+        this.fileClass = 'form-control file-input is-invalid';
+        this.validaArcLog = this.altaServ.validarArchivoLog(this.archivo);
       }
-      fileReader.readAsText(this.file);
+    }
+    fileReader.readAsText(this.file);
   }
 
   cargaArchivos():void{
