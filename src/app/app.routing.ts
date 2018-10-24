@@ -10,9 +10,12 @@ import { PrioridadComponent } from './prioridad/prioridad.component';
 import { TecnologiaComponent } from './tecnologia/tecnologia.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { LoginComponent } from './login/login.component';
+import { ApiDevComponent } from './api-dev/api-dev.component';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: '/inicio', pathMatch: 'full' },
+    { path: '', redirectTo: '/api', pathMatch: 'full' },
+    { path: 'api', component: ApiDevComponent }
+    /*
     { path: 'alta', component: AltaComponent },
     { path: 'conectado', component: ConexionesComponent },
     { path: 'estado', component: EstadoComponent },
@@ -22,7 +25,7 @@ const appRoutes: Routes = [
     { path: 'tecnologia', component: TecnologiaComponent },
     { path: 'inicio', component: InicioComponent},
     { path: 'login', component: LoginComponent },
-    { path: '**', redirectTo: '/inicio'}
+    { path: '**', redirectTo: '/inicio'}*/
 ];
 
 export const appRoutingProviders: any[] = [];
