@@ -1,10 +1,8 @@
-interface rmdSelect{
+interface rmdInsert{
     usuario: string,
     formulario: string,
-    consulta: string,
     columnas: string[],
     condiciones: condicion[],
-    orden: string,
     url: string,
     result?: IdValue[],
     rawResult?: string,

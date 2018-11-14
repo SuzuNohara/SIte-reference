@@ -1,10 +1,9 @@
-interface rmdSelect{
+interface rmdUpdate{
     usuario: string,
     formulario: string,
-    consulta: string,
+    id: string,
     columnas: string[],
     condiciones: condicion[],
-    orden: string,
     url: string,
     result?: IdValue[],
     rawResult?: string,

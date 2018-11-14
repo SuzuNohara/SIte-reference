@@ -31,10 +31,26 @@ export class RcontrolService {
     return seleccion;
   }
 
+  insert(insercion: rmdInsert): rmdInsert{
+    return insercion;
+  }
+
+  update(update: rmdUpdate): rmdUpdate{
+    return update;
+  }
+
   private getMethod(url: string):string{
     let retorno: string;
     this.http.get(url).pipe(map(res => res.json())).subscribe(result => {
       retorno = result;
+    });
+    return retorno;
+  }
+
+  private postMethod(url: string): string{
+    let retorno: string;
+    this.http.post(url, null).pipe(map(res => res.json())).subscribe(result => {
+      retorno = result();
     });
     return retorno;
   }
