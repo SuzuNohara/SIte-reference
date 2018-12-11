@@ -1,49 +1,48 @@
 import { Injectable } from '@angular/core';
 import { RcontrolService } from '../rcontrol/rcontrol.service';
+import { environment } from '../../environments/environment.qa';
+import { AutomatasService } from '../automatas/automatas.service';
+import { rmdSelect } from '../../implements/rmdSelect';
+import { condicion } from '../../implements/condicion';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AltaServiceService {
 
-  constructor(private rcontrol: RcontrolService){}
+  constructor(private rcontrol: RcontrolService, private automatas: AutomatasService){}
+
+  select: rmdSelect;
   
-  validarCRQ(CRQ: string): boolean{
-    let select : rmdSelect;
-    select.columnas = ['','',''];
-    //this.rcontrol.select();
-    return true;
+  async validarCRQ(crq: string): Promise<boolean>{
+    return new Promise<boolean>(resolve => {
+        setTimeout(() => {
+          let retorno: boolean = true;
+          
+        }, 1000);
+    });
   }
 
-  validarArchivo(archivo: string): boolean{
-    let retorno:boolean = true;
+  validarArchivo(archivo: string): string[]{
+    let retorno:string[] = [];
+    let index: number = 0;
     let lines: string[] = archivo.split("\n");
-    if(lines.length <= 1){retorno = false;}
+    if(lines.length <= 1){
+      retorno.push("El documento no contiene sitios que dar de alta");
+    }
     for(let linea of lines){
-      if(linea.split(",").length != 11){
+      if(index == 0){
+        if(linea.indexOf(environment.ALTA_ENCABEZADOS) != 0){ 
+          retorno.push("El encabezado no está en el formato: " + environment.ALTA_ENCABEZADOS);
+        }
+      }
+      index++;
+      if(linea.split(",").length != environment.ALTA_ENCABEZADOS.split(",").length){
         if(linea != '' && linea != '\n'){
-          retorno = retorno && false;
+          retorno.push("La linea " + index + " no posee el formato correcto");
         }
       }
     }
-    //if(lines[0] != 'NUM,COMPANIA,NEMONICO,NOMBRE,REGION,TECNOLOGIA,SITIO CONECTADO A ,TIPO DE SITIO,GRUPO QUE ATIENDE,SITIO_ALARMA,IP'){retorno = false;}
     return retorno;
-  }
-
-  validarArchivoLog(archivo: string): string{
-    let retorno: string = "<small><small>";
-    let lines: string[] = archivo.split("\n");
-    if(lines.length <= 1){retorno += "<p>El archivo no contiene ningun registro para procesarse</p>";}
-    /*if(lines[0] != 'NUM,COMPANIA,NEMONICO,NOMBRE,REGION,TECNOLOGIA,SITIO CONECTADO A ,TIPO DE SITIO,GRUPO QUE ATIENDE,SITIO_ALARMA,IP'){
-      retorno += "<p>ERROR: El encabezado no cumple con el formato: NUM,COMPANIA,NEMONICO,NOMBRE,REGION,TECNOLOGIA,SITIO CONECTADO A ,TIPO DE SITIO,GRUPO QUE ATIENDE,SITIO_ALARMA,IP</p>";
-    }*/
-    for(let i: number = 0; i < lines.length; i++){
-      if(lines[i].split(",").length != 11){
-        if(lines[i] != '' && lines[i] != '\n'){
-          retorno += "<p>ERROR: La linea " + i + " del documento no tiene el formato requerido</p>";
-        }
-      }
-    }
-    return retorno + "</small></small>";
   }
 }

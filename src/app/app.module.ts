@@ -17,6 +17,8 @@ import { InicioComponent } from './inicio/inicio.component';
 import { LoginComponent } from './login/login.component';
 
 import { AltaAnalizadorArchivoComponent } from './alta-analizador-archivo/alta-analizador-archivo.component';
+import { AlertaComponent } from './alerta/alerta.component';
+import { InformacionComponent } from './informacion/informacion.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { AltaAnalizadorArchivoComponent } from './alta-analizador-archivo/alta-a
     PrioridadComponent,
     InicioComponent,
     LoginComponent,
-    AltaAnalizadorArchivoComponent
+    AltaAnalizadorArchivoComponent,
+    AlertaComponent,
+    InformacionComponent
   ],
   imports: [
     BrowserModule,

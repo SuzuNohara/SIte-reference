@@ -8,7 +8,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">CRQ</label>
           <div class="col-sm-10">
-            <input type="text" [(ngModel)]="crqModel" [ngClass]="crqClass" placeholder="CRQ">
+            <input type="text" [(ngModel)]="crqModel" [ngClass]="crqClass" placeholder="CRQ" minlength="15" maxlength="15" (ngModelChange)="validaCRQ()">
             <div class="valid-feedback">
               CRQ valido!
             </div>
@@ -20,7 +20,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Archivo</label>
           <div class="col-sm-10">
-            <input type="file" [ngClass]="fileClass" (change)="fileChargue($event)">
+            <input type="file" [ngClass]="fileClass" (click)="restauraValores()" (change)="fileChargue($event)">
             <div class="valid-feedback">
               Archivo valido!
             </div>
@@ -50,7 +50,7 @@
             <div class="progress">
               <div [ngClass]="validaArcclass" role="progressbar" [ngStyle]="{ 'width': validaArccarga + '%' }" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <div [innerHTML]="validaArcLog"></div>
+            <div class="logArch" [innerHTML]="validaArcLog"></div>
             <hr>
           </div>
         </div>

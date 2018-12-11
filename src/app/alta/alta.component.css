@@ -5,9 +5,15 @@
     border-color: #ddd;
     border-radius: 6px;
     padding: 10px;
+    overflow: scroll;
 }
 
 hr{
     margin-top: 3px;
     margin-bottom: 3px;
+}
+
+.logArch{
+    max-height: 200px;
+    overflow: scroll;
 }

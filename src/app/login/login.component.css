@@ -1,0 +1,15 @@
+.panel{
+    width: 30vw;
+    margin-top: 10vh;
+    margin-left: 35vw;
+    padding: 20px;
+}
+
+hr{
+    margin: 0px;
+}
+
+.right{
+    width: 100%;
+    text-align: right;
+}
