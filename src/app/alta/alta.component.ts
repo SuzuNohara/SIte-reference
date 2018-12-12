@@ -57,6 +57,7 @@ export class AltaComponent implements OnInit {
     this.validaArcclass = 'progress-bar bg-dark';
     this.validaArctext = 'Validando documento...';
     this.validaArccarga = 0;
+    this.validaArcLog = "";
     
     this.file = e.target.files[0];
     this.validaDoc = true;

@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { AltaAnalizadorArchivoComponent } from './alta-analizador-archivo/alta-analizador-archivo.component';
 import { AlertaComponent } from './alerta/alerta.component';
 import { InformacionComponent } from './informacion/informacion.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,9 @@ import { InformacionComponent } from './informacion/informacion.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
