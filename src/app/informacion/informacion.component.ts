@@ -7,9 +7,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InformacionComponent implements OnInit {
 
-  constructor() { }
+  titulo: string;
+  contenido: string;
+  cierre: string;
+  private showInfo: boolean;
+
+  constructor() {
+    this.titulo = "titulo";
+    this.contenido = "contenido";
+    this.cierre = "cerrar";
+  }
 
   ngOnInit() {
   }
 
+  setInfo(titulo: string, contenido: string, cierre: string): boolean{
+    this.titulo = titulo;
+    this.contenido = contenido;
+    this.cierre = cierre;
+    return true;
+  }
+
+  show(){
+    this.showInfo = true;
+  }
+
+  hide(){
+    this.showInfo = false;
+  }
 }

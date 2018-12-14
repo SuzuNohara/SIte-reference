@@ -46,18 +46,17 @@ export class rmdSelect{
         let res: string = this.rawResult.trim();
         let result: string[];
         let resultres: string[];
-        if(this.rawResult){
-            if(this.rawResult.indexOf('<RESULTADO>') > 0){
+        if(res){
+            if(res.indexOf('<RESULTADO>') > 0){
                 this.error = false;
                 res = res.substr(res.indexOf('<RESULTADO>') + '<RESULTADO>'.length);
                 res = res.substr(0, res.indexOf('</RESULTADO>'));
                 res = res.substr('<Entry>'.length + 1);
                 res = res.substr(0, res.length - '</Entry>'.length - 1);
-                console.log(res);
-                result = res.split('</Entry><Entry>');
+                result = res.split('</Entry>\n<Entry>');
                 for(let i: number = 0; i < result.length; i++){
                     result[i] = result[i].substr('<Field>'.length, result[i].length - '</Field>'.length);
-                    resultres = result[i].split('</Field><Field>');
+                    resultres = result[i].split('</Field>\n<Field>');
                     for(let j = 0; j < resultres.length; j++){
                         let auxus: string = resultres[j];
                         aux.id = resultres[j].substr(auxus.indexOf('<id>') + '<id>'.length);
@@ -73,7 +72,7 @@ export class rmdSelect{
                 this.printResult();
             }else{
                 this.error = true;
-                this.errorDesc = "El CRQ no es valido";
+                this.errorDesc = "Resultado incompleto";
             }
         }
     }

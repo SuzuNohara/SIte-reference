@@ -20,6 +20,7 @@ import { AltaAnalizadorArchivoComponent } from './alta-analizador-archivo/alta-a
 import { AlertaComponent } from './alerta/alerta.component';
 import { InformacionComponent } from './informacion/informacion.component';
 import { CookieService } from 'ngx-cookie-service';
+import { AltaSitioComponent } from './alta-sitio/alta-sitio.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CookieService } from 'ngx-cookie-service';
     LoginComponent,
     AltaAnalizadorArchivoComponent,
     AlertaComponent,
-    InformacionComponent
+    InformacionComponent,
+    AltaSitioComponent
   ],
   imports: [
     BrowserModule,

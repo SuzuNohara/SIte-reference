@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   progreso: string;
 
   constructor(private http: Http, private cookieService: CookieService) {
-    this.progreso = "Iniciando sesion..."
+    this.progreso = "Iniciando sesion...";
     this.usuarioDis = false;
     this.contraDis = false;
     this.processing = false;
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       this.contraDis = true;
       this.processing = true;
       if(this.usuarioModel == environment.USER_ROOT && this.contraModel == environment.PASS_ROOT){
-        console.log("sesion correcta");
+        this.progreso = "Acceso corrrecta";
         this.cookieService.set(environment.SESSION_COOKIE,'zzzROOT');
         this.session.emit(true);
         window.location.reload();
@@ -56,43 +56,67 @@ export class LoginComponent implements OnInit {
   }
 
   validaUsuario(){
-    /*let select = new rmdSelect();
-    let con: condicion = new condicion();
-    select.columnas.push('1');
-    con.campo = '7';
-    con.realcion = '=';
-    con.valor = '7';
-    select.condiciones.push(con);
-    con = new condicion();
-    con.campo = '1000000182';
-    con.realcion = '=';
-    con.valor = this.crqModel;
-    select.condiciones.push(con);
-    select.formulario = environment.FORM_CR;
-    select.usuario = environment.SISTEMA;
-    let url: string = environment.URL_SELECT;
-    let condiciones: string = "";
-    url += 'cSistema=' + environment.SISTEMA;
-    url += '&cForma=' + select.formulario;
-    url += '&cColumnas=' + select.columnas.join(' ');
-    for(let i = 0; i < select.condiciones.length; i++){
-      condiciones += '\'' + select.condiciones[i].campo + '\'' + select.condiciones[i].realcion + '\'' + select.condiciones[i].valor + '\' ';
-    }
-    url += '&cCondiciones=' + condiciones;
-    select.url = url;
-    this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
-      select.rawResult = result;
-      select.rawToResult();
-      this.validaCRcarga = 100;
-      if(select.error){
-        this.crqClass = "form-control is-invalid";
-        this.validaCRtext = "El CRQ no es valido";
-        this.validaCRclass = 'progress-bar bg-danger';
-      }else{
-        this.validaCRtext = "El CRQ es valido";
-        this.crqClass = "form-control is-valid";
-        this.validaCRclass = 'progress-bar bg-success';
+    this.progreso = "Validando credenciales...";
+    if(this.usuarioModel.split(".")[0] == this.contraModel){
+      this.progreso = "Validando grupos de soporte";
+      let select = new rmdSelect();
+      let con: condicion = new condicion();
+      select.columnas.push('1');
+      con.campo = '4';
+      con.realcion = '=';
+      con.valor = this.usuarioModel;
+      select.condiciones.push(con);
+      con = new condicion();
+      con.campo = '1000000079';
+      con.realcion = '=';
+      con.valor = environment.QUERY_GRUP;
+      select.condiciones.push(con);
+      select.formulario = environment.FORM_GRUP_ASS;
+      select.usuario = environment.SISTEMA;
+
+      let url: string = environment.URL_SELECT;
+      let condiciones: string = "";
+      url += 'cSistema=' + environment.SISTEMA;
+      url += '&cForma=' + select.formulario;
+      url += '&cColumnas=' + select.columnas.join(' ');
+      for(let i = 0; i < select.condiciones.length; i++){
+        condiciones += '\'' + select.condiciones[i].campo + '\'' + select.condiciones[i].realcion + '\'' + select.condiciones[i].valor + '\' ';
       }
-    });*/
+      url += '&cCondiciones=' + condiciones;
+      select.url = url;
+      this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
+        select.rawResult = result;
+        select.rawToResult();
+        if(select.error){
+          this.usuarioDis = false;
+          this.contraDis = false;
+          this.progreso = "";
+          this.processing = false;
+          this.alerta.setInfo("Error al iniciar sesión", "<p>Hubo un error al validar tus grupos de soporte, intenta nuevamente o verifica que los grupos de soporte a los que perteneces tengan el acceso permitido a éste sistema</p>", "OK");
+          this.alerta.show();
+        }else{
+          if(select.result.length > 0){
+            this.progreso = "Acceso correcto";
+            this.cookieService.set(environment.SESSION_COOKIE, this.usuarioModel);
+            this.session.emit(true);
+            window.location.reload();
+          }
+        }
+      }, error =>{
+        this.usuarioDis = false;
+          this.contraDis = false;
+          this.progreso = "";
+          this.processing = false;
+          this.alerta.setInfo("Error al iniciar sesión", "<p>Error al conectarse con el servidor, intentalo de nuevo</p><p>" + error + "</p>", "OK");
+          this.alerta.show();
+      });
+    }else{
+      this.usuarioDis = false;
+      this.contraDis = false;
+      this.progreso = "";
+      this.processing = false;
+      this.alerta.setInfo("Error al iniciar sesión", "<p>La combinación de usuario y contraseña no es valida</p>", "OK");
+      this.alerta.show();
+    }
   }
 }

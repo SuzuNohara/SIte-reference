@@ -3,8 +3,12 @@ import { AltaAnalizadorArchivoComponent } from '../alta-analizador-archivo/alta-
 import { environment } from '../../environments/environment';
 import { AltaServiceService } from '../../services/alta/alta-service.service';
 import { AutomatasService } from '../../services/automatas/automatas.service';
+import { InformacionComponent } from '../informacion/informacion.component';
+import { AlertaComponent } from '../alerta/alerta.component';
+import { AltaSitioComponent } from '../alta-sitio/alta-sitio.component';
 import { rmdSelect } from '../../implements/rmdSelect';
 import { condicion } from '../../implements/condicion';
+import { sitio } from '../../implements/sitio';
 import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
 import * as $ from 'jquery';
@@ -15,6 +19,10 @@ import * as $ from 'jquery';
   styleUrls: ['./alta.component.css']
 })
 export class AltaComponent implements OnInit {
+
+  @ViewChild(InformacionComponent) info: InformacionComponent;
+  @ViewChild(AlertaComponent) alert: AlertaComponent;
+  @ViewChild(AltaSitioComponent) sitiosRef: AltaSitioComponent[];
 
   crqModel: string;
   crqClass:string;
@@ -35,7 +43,12 @@ export class AltaComponent implements OnInit {
 
   validaDoc: boolean;
 
+  fileValid: boolean;
+  crqValid: boolean;
+
   @ViewChild(AltaAnalizadorArchivoComponent) analizador: AltaAnalizadorArchivoComponent;
+
+  sitios: sitio[];
 
   constructor(private altaServ: AltaServiceService, private automatas: AutomatasService, private http: Http) {
     this.validaCR = false;
@@ -48,11 +61,15 @@ export class AltaComponent implements OnInit {
     this.validaArcclass = 'progress-bar bg-dark';
     this.validaArctext = 'Validando documento...';
     this.validaArccarga = 0;
+    this.fileValid = false;
+    this.crqValid = false;
+    this.sitios = [];
   }
 
   ngOnInit() {}
 
   fileChargue(e) {
+    this.fileValid = false;
     this.fileClass = 'form-control file-input';
     this.validaArcclass = 'progress-bar bg-dark';
     this.validaArctext = 'Validando documento...';
@@ -70,6 +87,7 @@ export class AltaComponent implements OnInit {
         this.validaArctext = 'El documento es valido';
         this.validaArcclass = 'progress-bar bg-success';
         this.fileClass = 'form-control file-input is-valid';
+        this.fileValid = true;
       }else{
         this.validaArctext = 'El documento no es valido';
         this.validaArcclass = 'progress-bar bg-danger';
@@ -84,6 +102,7 @@ export class AltaComponent implements OnInit {
   }
 
   validaCRQ(){
+    this.crqValid = false;
     let select: rmdSelect;
     this.validaCRcarga = 0;
     if(this.crqModel.length < 15){
@@ -101,6 +120,7 @@ export class AltaComponent implements OnInit {
         this.crqClass = "form-control is-valid";
         this.validaCRclass = 'progress-bar bg-success';
         this.validaCRcarga = 100;
+        this.crqValid = true;
       }else{
         if(this.automatas.automatCRQ(this.crqModel)){
           select = new rmdSelect();
@@ -139,7 +159,11 @@ export class AltaComponent implements OnInit {
               this.validaCRtext = "El CRQ es valido";
               this.crqClass = "form-control is-valid";
               this.validaCRclass = 'progress-bar bg-success';
+              this.crqValid = true;
             }
+          }, error =>{
+            this.alert.setInfo("Error", "<p>Error al consultar la informacion, comprueba tu conexion a internet</p><p>" + error + "</p>", "ok");
+            this.alert.show();
           });
         }else{
           this.validaCRclass = 'progress-bar bg-danger';
@@ -173,6 +197,49 @@ export class AltaComponent implements OnInit {
 
   cargaArchivos():void{
     this.analizador.cargaEmulate(0);
+  }
+
+  showInfo(){
+    this.info.setInfo("Alta de sitios", "Esta es la información correspondiente al alta de sitios", "OK");
+    this.info.show();
+  }
+
+  cargaSitios(){
+    let lines: string[] = this.archivo.split("\n");
+    let campos: string[];
+    let site: sitio;
+    for(let i = 1; i < lines.length; i++){
+      site = new sitio();
+      campos = lines[i].split(",");
+      site.numero = Number(campos[0]);
+      site.compania = campos[1];
+      site.nemonico = campos[2];
+      site.nombre = campos[3];
+      site.region = campos[4];
+      site.tecnologia = campos[5];
+      site.conectado = campos[6];
+      site.tipo = campos[7];
+      site.grupoSoporte = campos[8];
+      site.sitioAlarma = campos[9];
+      site.ip = campos[10];
+      this.sitios.push(site);
+    }
+  }
+
+  siteInit(event){
+    console.log("SiteInit - " + event);
+  }
+
+  siteValidate(event){
+    console.log("SiteValidate - " + event);
+  }
+
+  siteFinish(event){
+    console.log("SiteFinish - " + event);
+  }
+
+  siteReport(event){
+    console.log("SiteReport - " + event);
   }
 
 }

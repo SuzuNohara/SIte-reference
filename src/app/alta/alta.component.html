@@ -1,5 +1,5 @@
 <div class="container maincontent">
-  <h2 class="display-3">Alta de sitios &nbsp;<small class="text-muted"><button class="btn btn-sm btn-outline-dark">?</button></small>
+  <h2 class="display-3">Alta de sitios &nbsp;<small class="text-muted"><button class="btn btn-sm btn-outline-dark" (click)="showInfo()">?</button></small>
   </h2>
   <hr>
   <div class="container">
@@ -31,7 +31,7 @@
         </div>
         <div class="form-group row">
           <div class="col-sm-12 text-right">
-            <button (click)="cargaArchivos()" class="btn btn-outline-dark btn-sm">Alta de sitios</button>
+            <button (click)="cargaSitios()" class="btn btn-outline-dark btn-sm" *ngIf="fileValid && crqValid">Alta de sitios</button>
           </div>
         </div>
       </div>
@@ -53,8 +53,11 @@
             <div class="logArch" [innerHTML]="validaArcLog"></div>
             <hr>
           </div>
+          <app-alta-sitio *ngFor="let site of sitios; let index" (init)="siteInit($event)" (validate)="siteValidate($event)" (finish)="siteFinish($event)" (report)="siteReport($event)" [site]="site"></app-alta-sitio>
         </div>
       </div>
     </div>
   </div>
 </div>
+<app-informacion></app-informacion>
+<app-alerta></app-alerta>

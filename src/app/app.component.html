@@ -6,8 +6,15 @@
         </div>
         <ul class="dropdown-menu" aria-labelledby="opciones">
         <li><a>Administración</a></li>
+        <li><a>Cerrar sesion</a></li>
         </ul>
     </h4>
+    <div class="title-item cont-inline float-right">
+        <button class="btn btn-danger btn-sm" style="margin-top: 5px;" (click)="cerrarSesion()" *ngIf="activeSession">Cerrar Sesion</button>
+    </div>
+    <div class="title-item cont-inline float-right" style=" padding: 10px;">
+        <h5>{{ userLoged }}</h5>
+    </div>
 </div>
 <div class="option-bar font-dark background-light">
     <div class="option-item" [routerLink]="['/inicio']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Inicio</div></div>

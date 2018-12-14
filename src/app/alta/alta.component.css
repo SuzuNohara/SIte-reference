@@ -6,6 +6,8 @@
     border-radius: 6px;
     padding: 10px;
     overflow: scroll;
+    max-height: 65vh;
+    overflow-y: scroll;
 }
 
 hr{

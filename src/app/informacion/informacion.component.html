@@ -1,3 +1,11 @@
-<p>
-  informacion works!
-</p>
+<div class="informacion-c" *ngIf="showInfo">
+  <div class="informacion card">
+    <h4 class="informacion-titulo">{{ titulo }}</h4>
+    <hr>
+    <div class="informacion-contenido" [innerHtml]="contenido"></div>
+    <hr>
+    <div class="informacion-acciones">
+      <button type="button" class="btn btn-sm btn-dark" (click)="hide()">{{ cierre }}</button>
+    </div>
+  </div>
+</div>

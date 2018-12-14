@@ -4,9 +4,12 @@
 
 export const environment = {
   production: false,
-  URL_INSERT: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDInsert?',
-  URL_UPDATE: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDUpdate?',
-  URL_SELECT: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDSelect?',
+  URL_INSERTD: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDInsert?',
+  URL_UPDATED: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDUpdate?',
+  URL_SELECTD: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDSelect?',
+  URL_INSERT: 'http://remedycontrolq.oymcloud.americamovil.com:8080/Remedy/servicios/RMDInsert?',
+  URL_UPDATE: 'http://remedycontrolq.oymcloud.americamovil.com:8080/Remedy/servicios/RMDUpdate?',
+  URL_SELECT: 'http://remedycontrolq.oymcloud.americamovil.com:8080/Remedy/servicios/RMDSelect?',
   MAIL_SERVICE: 'http://10.119.155.72:8080/blankServices/mail.jsp',
 
   SISTEMA: 'SITIOS',
@@ -25,7 +28,7 @@ export const environment = {
   SGS_COLS_DESINSTALADO_STTE_CHANGE: '&cColumnas=\'7\'=\'6\' \'536871183\'=\'.\'',
   SGS_COLS_CANCEL_AFTER_OPERATE: '&cColumnas=\'7\'=\'7\' \'536878218\'=\'Yes\' \'536878301\'=\'Yes\'',
 
-  QUERY_GRUP: '\'1000000079\'=\'(SGP000000000344,SGP000000000397,SGP000000000453, SGP000000000502, SGP000000000534)\' \'7\'=\'1\'',
+  QUERY_GRUP: '(SGP000000000344,SGP000000000397,SGP000000000453, SGP000000000502, SGP000000000534)',
 
   ALTA_ENCABEZADOS: 'NUM,COMPANIA,NEMONICO,NOMBRE,REGION,TECNOLOGIA,SITIO CONECTADO A ,TIPO DE SITIO,GRUPO QUE ATIENDE,SITIO_ALARMA,IP',
   TIMEOUT: 1000,
