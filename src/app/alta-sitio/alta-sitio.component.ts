@@ -33,6 +33,7 @@ export class AltaSitioComponent implements OnInit {
     this.status = "Inicializando";
     this.showClass = 'progress-bar bg-info progress-bar-striped progress-bar-animated alta-progress';
     this.retornoTec = [];
+    this.insertG = new rmdInsert();
   }
 
   ngOnInit() {
@@ -68,7 +69,6 @@ export class AltaSitioComponent implements OnInit {
     }
     url += '&cCondiciones=' + condiciones;
     this.select.url = url;
-    console.log(url);
     this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
       this.insertG = new rmdInsert();
       this.status = 'Insertando sitio';
@@ -86,34 +86,65 @@ export class AltaSitioComponent implements OnInit {
                 this.retornoTec.push(con);
             }
         }
-      }
-      if(this.retornoTec.length == 0){
-        this.status = "Error en tecnologia y tipo de sitio";
-        this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
-      }else{
-        console.log("Inicia construccion de insert");
-        for(let con of this.retornoTec){
-            this.insertG.columnas.push(con);
+        if(this.retornoTec.length == 0){
+          this.status = "Error en tecnologia y tipo de sitio " + this.site.nemonico + " - " + this.site.tipo + "," + this.site.tecnologia;
+          this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
+          this.finishMethod( false, "Error en la selección de tecnología y tipo de sitio");
+        }else{
+          let url: string = environment.URL_INSERT;
+          let condiciones: string = "";
+          url += 'cSistema=' + environment.SISTEMA;
+          url += '&cForma=' + environment.FORM_SITE;
+          condiciones += '\'536870925\'=\'' + this.site.nemonico + '\' ';
+          condiciones += '\'8\'=\'' + this.site.nombre + '\' ';
+          condiciones += '\'536870989\'=\'' + this.site.conectado + '\' ';
+          condiciones += '\'536871141\'=\'' + this.site.ip + '\' ';
+          condiciones += '\'1000000001\'=\'' + this.site.compania + '\' ';
+          condiciones += '\'536878321\'=\'' + this.site.sitioAlarma + '\' ';
+          condiciones += '\'536870914\'=\'' + this.site.region + '\' ';
+          condiciones += '\'730000001\'=\'' + this.site.tecnologia + '\' ';
+          condiciones += '\'536870974\'=\'' + this.site.tipo + '\' ';
+          condiciones += '\'536871003\'=\'' + this.site.grupoSoporte + '\' ';
+          for(let con of this.retornoTec){
+            if(con.campo == '536870922'){
+              condiciones += '\'536878271\'' + con.realcion + '\'' + con.valor + '\' ';
+            }else if(con.campo == '536870914'){
+              condiciones += '\'536878272\'' + con.realcion + '\'' + con.valor + '\' ';
+            }else if(con.campo == '536870918'){
+              condiciones += '\'536878317\'' + con.realcion + '\'' + con.valor + '\' ';
+            }else if(con.campo == '536870921'){
+              condiciones += '\'536878269\'' + con.realcion + '\'' + con.valor + '\' ';
+            }else if(con.campo == '536870920'){
+              condiciones += '\'536878270\'' + con.realcion + '\'' + con.valor + '\' ';
+            }
+          }
+          url += '&cColumnas=' + condiciones;
+          this.insertG.url = url;
+          this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
+            if(result.indexOf('<NUEVO>') >= 0){
+              this.status = "Sitio insertado " + this.site.nemonico + " - " + this.site.nemonico + " - " + result.substring(result.indexOf('<NUEVO>') + '<NUEVO>'.length,result.indexOf('</NUEVO>'));
+              this.showClass = 'progress-bar bg-success progress-bar-striped alta-progress';
+              this.finishMethod( true, "Sitio creado correctamente " + result.substring(result.indexOf('<NUEVO>') + '<NUEVO>'.length,result.indexOf('</NUEVO>')));
+            }else if(result.indexOf('<ERROR>') >= 0){
+              this.status = "Error de datos " + this.site.nemonico;
+              this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
+              this.finishMethod( false, "Error en los datos ingresados: " + result.substring(result.indexOf('<ERROR>') + '<ERROR>'.length,result.indexOf('</ERROR>')));
+            }else{
+              this.status = 'Error desconocido ' + this.site.nemonico;
+              this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
+              this.finishMethod( false, "Error desconocido: " + result);
+            }
+          }, error =>{
+            this.status = 'Error de conexion al insertar ' + this.site.nemonico;
+            this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
+            this.finishMethod( false, "Error de conexion a Remedy Control");
+          });
         }
-        let url: string = environment.URL_INSERT;
-        let condiciones: string = "";
-        url += 'cSistema=' + environment.SISTEMA;
-        url += '&cForma=' + this.insertG.formulario;
-        for(let i = 0; i < this.insertG.columnas.length; i++){
-            condiciones += '\'' + this.insertG.condiciones[i].campo + '\'' + this.insertG.condiciones[i].realcion + '\'' + this.insertG.condiciones[i].valor + '\' ';
-        }
-        url += '&cColumnas=' + condiciones;
-        this.insertG.url = url;
-        console.log(url);
-        /*this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
-            
-        }, error =>{
-            
-        });*/
       }
     }, error =>{
-      this.status = 'Error en la consulta';
+      this.status = 'Error en la consulta ' + this.site.nemonico;
       this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
+      this.finishMethod( false, "Error de conexion a Remedy Control");
     });
   }
 
@@ -125,10 +156,10 @@ export class AltaSitioComponent implements OnInit {
     this.validate.emit(this.site.numero);
   }
 
-  finishMethod(){
+  finishMethod(stat: boolean, message: string){
     let end: endStatus = new endStatus();
-    end.status = true;
-    end.texto = "Termina correctamente";
+    end.status = stat;
+    end.texto = message;
     this.finish.emit(end);
   }
 

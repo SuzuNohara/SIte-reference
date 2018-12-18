@@ -10,6 +10,7 @@ export const environment = {
   URL_INSERT: 'http://remedycontrolq.oymcloud.americamovil.com:8080/Remedy/servicios/RMDInsert?',
   URL_UPDATE: 'http://remedycontrolq.oymcloud.americamovil.com:8080/Remedy/servicios/RMDUpdate?',
   URL_SELECT: 'http://remedycontrolq.oymcloud.americamovil.com:8080/Remedy/servicios/RMDSelect?',
+  AUTO_REFERENCE: 'http://remedycontrolq.oymcloud.americamovil.com:8080/SitiosV3',
   MAIL_SERVICE: 'http://10.119.155.72:8080/blankServices/mail.jsp',
 
   SISTEMA: 'SITIOS',
@@ -36,7 +37,8 @@ export const environment = {
   ROOT_CRQ: 'CRQROOT00000000',
   USER_ROOT: 'zzzROOT',
   PASS_ROOT: 'root',
-  SESSION_COOKIE: 's3s10n'
+  SESSION_COOKIE: 's3s10n',
+  ERRORS: ['382,El sitio que intenta crear ya existe o tiene un nemónico identico']
 };
 
 /*

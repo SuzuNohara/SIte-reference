@@ -6,7 +6,8 @@
     border-radius: 6px;
     padding: 10px;
     overflow: scroll;
-    max-height: 65vh;
+    max-height: 60vh;
+    margin-bottom: 10px;
     overflow-y: scroll;
 }
 
@@ -18,4 +19,13 @@ hr{
 .logArch{
     max-height: 200px;
     overflow: scroll;
+}
+
+.alerta{
+    padding: 0px;
+    margin: 2px;
+}
+
+button{
+    margin-right: 10px;
 }

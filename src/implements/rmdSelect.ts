@@ -69,7 +69,7 @@ export class rmdSelect{
                     this.result.push(aux1);
                     aux1 = new entry();
                 }
-                this.printResult();
+                // this.printResult();
             }else{
                 this.error = true;
                 this.errorDesc = "Resultado incompleto";

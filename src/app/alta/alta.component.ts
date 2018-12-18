@@ -12,6 +12,9 @@ import { sitio } from '../../implements/sitio';
 import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
 import * as $ from 'jquery';
+import { endStatus } from '../../implements/endStatus';
+import { faFile } from '@fortawesome/free-solid-svg-icons';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-alta',
@@ -19,6 +22,10 @@ import * as $ from 'jquery';
   styleUrls: ['./alta.component.css']
 })
 export class AltaComponent implements OnInit {
+
+  faQuestionCircle = faQuestionCircle;
+  faFile = faFile;
+  docReference: string;
 
   @ViewChild(InformacionComponent) info: InformacionComponent;
   @ViewChild(AlertaComponent) alert: AlertaComponent;
@@ -46,6 +53,10 @@ export class AltaComponent implements OnInit {
   fileValid: boolean;
   crqValid: boolean;
 
+  endReport: endStatus[];
+
+  reportVisible: boolean;
+
   @ViewChild(AltaAnalizadorArchivoComponent) analizador: AltaAnalizadorArchivoComponent;
 
   sitios: sitio[];
@@ -64,9 +75,14 @@ export class AltaComponent implements OnInit {
     this.fileValid = false;
     this.crqValid = false;
     this.sitios = [];
+    this.endReport = [];
+    this.reportVisible = false;
+    this.docReference = environment.AUTO_REFERENCE + '/formatos/ALTA_DE_SITIOS.csv';
   }
 
   ngOnInit() {}
+
+  downloadFile(){}
 
   fileChargue(e) {
     this.fileValid = false;
@@ -200,7 +216,17 @@ export class AltaComponent implements OnInit {
   }
 
   showInfo(){
-    this.info.setInfo("Alta de sitios", "Esta es la información correspondiente al alta de sitios", "OK");
+    this.info.setInfo('Alta de sitios','<h4>¿Cómo usar esta página?</h4><p>Debes colocar en el fomulario de CRQ el crq que has generado o que se te proporcionó para '+
+    'generar los sitios.<br>EL CRQ debe estar en status Implantación en curso y debe ser de tipo Estándar</p><hr><img src="' + environment.AUTO_REFERENCE + '/img/alta01.png"' +
+    ' class="img-respoonsive"><hr><p>Cuando termines de escribir el CRQ, el sistema buscará si este es valido.</p><p>Una vez hayas ingresado el CRQ debes ingresar el archivo</p>' + 
+    '<hr><img src="' + environment.AUTO_REFERENCE + '/img/alta02.png" class="img-responsive"><hr><p>El nombre del archivo no es relevante, sin embargo, como esta formado si ' + 
+    'es importante</p><hr><img src="' + environment.AUTO_REFERENCE + '/img/alta08.png" class="img-responsive"><hr><p>El archivo tiene el formato de un CSV, pero además se recomienda ' +
+    'que éste se edite en un editor de texto plano "Sublime-text", "Notepad ++" "Notepad", etc. Ya que se deben de asegurar que no contenga lineas con comas (,) y sin datos ' +
+    'o lineas en balnco al final del documento</p><hr><img src="' + environment.AUTO_REFERENCE + '/img/alta03.png" class="img-responsive"><hr><p>Una vez el archivo sea valido y el ' +
+    'CRQ ingresado sea correcto aparecerá el boton de alta de sitios, al dar click en él, comenzará la carga de los sitios</p><p>Los sitios erroneos aparecerán en rojo</p> ' +
+    '<hr><img src="' + environment.AUTO_REFERENCE + '/img/alta04.png" class="img-responsive"><hr><p>Los correctos aparecerán en verde</p><hr><img src="' + environment.AUTO_REFERENCE + '/img/alta06.png" ' +
+    ' class="img-responsive"><hr><p>Al final de la carga de todos los sitios se te alertará por la finalización y podras consultar abajo del recuadro donde aparece la ' +
+    'información un botón en el que podras consultar el registro de errores o creaciones de sitios</p>', "OK");
     this.info.show();
   }
 
@@ -227,19 +253,41 @@ export class AltaComponent implements OnInit {
   }
 
   siteInit(event){
-    console.log("SiteInit - " + event);
+    //console.log("SiteInit - " + event);
   }
 
   siteValidate(event){
-    console.log("SiteValidate - " + event);
+    // console.log("SiteValidate - " + event);
   }
 
   siteFinish(event){
-    console.log("SiteFinish - " + event);
+    // console.log("SiteFinish - " + event.status + " - " + event.texto);
+    let end = new endStatus;
+    end.status = event.status;
+    end.texto = event.texto;
+    this.endReport.push(end);
+    if(this.sitios.length <= this.endReport.length){
+      this.alert.setInfo("Operación finalizada", "El registro de sitios terminó, lea el reporte generado al final del log para ver los resultados de su ejecucion", "OK");
+      this.reportVisible = true;
+      this.alert.show();
+    }
   }
 
   siteReport(event){
-    console.log("SiteReport - " + event);
+    // console.log("SiteReport - " + event);
+  }
+
+  showReport(){
+    let informacion: string = "";
+    for(let end of this.endReport){
+      if(end.status){
+        informacion += '<div class="alert alert-success alerta" role="alert">' + end.texto + '</div>';
+      }else{
+        informacion += '<div class="alert alert-danger alerta" role="alert">' + end.texto + '</div>';
+      }
+    }
+    this.info.setInfo("Operación terminada", informacion, "OK");
+    this.info.show();
   }
 
 }

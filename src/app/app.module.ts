@@ -21,6 +21,7 @@ import { AlertaComponent } from './alerta/alerta.component';
 import { InformacionComponent } from './informacion/informacion.component';
 import { CookieService } from 'ngx-cookie-service';
 import { AltaSitioComponent } from './alta-sitio/alta-sitio.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AltaSitioComponent } from './alta-sitio/alta-sitio.component';
     FileUploadModule,
     routing,
     FormsModule,
-    HttpModule
+    HttpModule,
+    FontAwesomeModule
   ],
   providers: [
     CookieService
