@@ -14,14 +14,14 @@ export class AppComponent{
   userLoged: string;
 
   constructor(private cookies: CookieService, private router: Router){
-    this.router.navigate(['/inicio']);
+    this.router.navigate(['/']);
     this.userLoged = "";
     this.activeSession = false;
     this.sessionName = cookies.get(environment.SESSION_COOKIE);
-    if(this.sessionName.length > 0){
+    if(this.sessionName.length > 0){  
       this.activeSession = true;
       this.userLoged = this.sessionName;
-      this.router.navigate(['/inicio']);
+      this.router.navigate(['/']);
     }
   }
 
@@ -35,6 +35,6 @@ export class AppComponent{
 
   cerrarSesion(){
     this.cookies.delete(environment.SESSION_COOKIE);
-    window.location.reload();
+    window.location.href = './SitiosV3';
   }
 }

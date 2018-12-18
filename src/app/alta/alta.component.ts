@@ -222,9 +222,11 @@ export class AltaComponent implements OnInit {
     '<hr><img src="' + environment.AUTO_REFERENCE + '/img/alta02.png" class="img-responsive"><hr><p>El nombre del archivo no es relevante, sin embargo, como esta formado si ' + 
     'es importante</p><hr><img src="' + environment.AUTO_REFERENCE + '/img/alta08.png" class="img-responsive"><hr><p>El archivo tiene el formato de un CSV, pero además se recomienda ' +
     'que éste se edite en un editor de texto plano "Sublime-text", "Notepad ++" "Notepad", etc. Ya que se deben de asegurar que no contenga lineas con comas (,) y sin datos ' +
-    'o lineas en balnco al final del documento</p><hr><img src="' + environment.AUTO_REFERENCE + '/img/alta03.png" class="img-responsive"><hr><p>Una vez el archivo sea valido y el ' +
+    'o lineas en balnco al final del documento. (Puedes descargar el archivo con el boton que se encuentra a un lado del boton de ayuda)</p><hr><img src="' 
+    + environment.AUTO_REFERENCE + '/img/alta03.png" class="img-responsive"><hr><p>Una vez el archivo sea valido y el ' +
     'CRQ ingresado sea correcto aparecerá el boton de alta de sitios, al dar click en él, comenzará la carga de los sitios</p><p>Los sitios erroneos aparecerán en rojo</p> ' +
-    '<hr><img src="' + environment.AUTO_REFERENCE + '/img/alta04.png" class="img-responsive"><hr><p>Los correctos aparecerán en verde</p><hr><img src="' + environment.AUTO_REFERENCE + '/img/alta06.png" ' +
+    '<hr><img src="' + environment.AUTO_REFERENCE + '/img/alta04.png" class="img-responsive"><hr><p>Los correctos aparecerán en verde</p><hr><img src="' + environment.AUTO_REFERENCE 
+    + '/img/alta06.png" ' +
     ' class="img-responsive"><hr><p>Al final de la carga de todos los sitios se te alertará por la finalización y podras consultar abajo del recuadro donde aparece la ' +
     'información un botón en el que podras consultar el registro de errores o creaciones de sitios</p>', "OK");
     this.info.show();

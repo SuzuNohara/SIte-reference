@@ -6,7 +6,7 @@ import { rmdSelect } from '../../implements/rmdSelect';
 import { condicion } from '../../implements/condicion';
 import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   processing: boolean;
   progreso: string;
 
-  constructor(private http: Http, private cookieService: CookieService) {
+  constructor(private http: Http, private cookieService: CookieService, private router: Router) {
     this.progreso = "Iniciando sesion...";
     this.usuarioDis = false;
     this.contraDis = false;
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         this.progreso = "Acceso corrrecta";
         this.cookieService.set(environment.SESSION_COOKIE,'zzzROOT');
         this.session.emit(true);
-        window.location.reload();
+        window.location.href = './SitiosV3';
       }else{
         this.validaUsuario();
       }
@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit {
             this.progreso = "Acceso correcto";
             this.cookieService.set(environment.SESSION_COOKIE, this.usuarioModel);
             this.session.emit(true);
-            window.location.reload();
+            window.location.href = './SitiosV3';
           }
         }
       }, error =>{
