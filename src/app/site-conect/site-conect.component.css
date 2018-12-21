@@ -1,0 +1,14 @@
+.alta-option{
+    background-color: transparent;
+    position: relative;
+}
+
+.alta-progress{
+    height: 14px;
+}
+
+.alta-text{
+    margin: 0px;
+    padding-left: 5px;
+    font-size: 12px;
+}

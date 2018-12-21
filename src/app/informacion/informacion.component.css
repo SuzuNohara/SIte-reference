@@ -1,0 +1,38 @@
+.informacion-c{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1998;
+    background-color: rgb(0,0,0,0.6);
+    height: 100vh;
+    width: 100vw;
+}
+
+.informacion{
+    position: relative;
+    z-index: 1998;
+    top: 10vh;
+    left: 15vw;
+    width: 70vw;
+    padding: 1vw;
+}
+
+.informacion-titulo{
+    text-align: left;
+}
+
+.informacion-contenido{
+    height: 50vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.informacion-acciones{
+    width: 100%;
+    text-align: right;
+    padding-top: 10px;
+}
+
+hr{
+    margin: 0px;
+}

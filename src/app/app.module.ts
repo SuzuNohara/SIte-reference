@@ -17,6 +17,13 @@ import { InicioComponent } from './inicio/inicio.component';
 import { LoginComponent } from './login/login.component';
 
 import { AltaAnalizadorArchivoComponent } from './alta-analizador-archivo/alta-analizador-archivo.component';
+import { AlertaComponent } from './alerta/alerta.component';
+import { InformacionComponent } from './informacion/informacion.component';
+import { CookieService } from 'ngx-cookie-service';
+import { AltaSitioComponent } from './alta-sitio/alta-sitio.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SiteConectComponent } from './site-conect/site-conect.component';
+import { SiteStatusComponent } from './site-status/site-status.component';
 
 @NgModule({
   declarations: [
@@ -30,16 +37,24 @@ import { AltaAnalizadorArchivoComponent } from './alta-analizador-archivo/alta-a
     PrioridadComponent,
     InicioComponent,
     LoginComponent,
-    AltaAnalizadorArchivoComponent
+    AltaAnalizadorArchivoComponent,
+    AlertaComponent,
+    InformacionComponent,
+    AltaSitioComponent,
+    SiteConectComponent,
+    SiteStatusComponent
   ],
   imports: [
     BrowserModule,
     FileUploadModule,
     routing,
     FormsModule,
-    HttpModule
+    HttpModule,
+    FontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,11 @@
+<div class="alerta-c" *ngIf="showAlert">
+  <div class="alerta card">
+    <h4 class="alerta-titulo">{{ titulo }}</h4>
+    <hr>
+    <div class="alerta-contenido" [innerHtml]="contenido"></div>
+    <hr>
+    <div class="alerta-acciones">
+      <button type="button" class="btn btn-sm btn-dark" (click)="hide()">{{ cierre }}</button>
+    </div>
+  </div>
+</div>

@@ -1,24 +1,31 @@
 <div class="title-bar font-light background-dark">
     <h4 class="page-title title-item cont-inline">
-        <img src="../assets/sitios.png" alt="" width="50" height="50"  id="opciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <img [src]="logoRef" alt="" width="50" height="50"  id="opciones" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
         <div class="cont-inline title-title" [routerLink]="['/home']">
             Gestión de sitios
         </div>
         <ul class="dropdown-menu" aria-labelledby="opciones">
         <li><a>Administración</a></li>
+        <li><a>Cerrar sesion</a></li>
         </ul>
     </h4>
+    <div class="title-item cont-inline float-right">
+        <button class="btn btn-danger btn-sm" style="margin-top: 5px;" (click)="cerrarSesion()" *ngIf="activeSession">Cerrar Sesion</button>
+    </div>
+    <div class="title-item cont-inline float-right" style=" padding: 10px;">
+        <h5>{{ userLoged }}</h5>
+    </div>
 </div>
 <div class="option-bar font-dark background-light">
-    <div class="option-item" [routerLink]="['/inicio']" [routerLinkActive]="['option-item-active']"><div class="cont-inline"><span class="glyphicon glyphicon-home"></span> Inicio</div></div>
-    <div class="option-item" [routerLink]="['/login']" [routerLinkActive]="['option-item-active']"><div class="cont-inline"><span class="glyphicon glyphicon-user"></span> Login</div></div>
-    <div class="option-item" [routerLink]="['/alta']" [routerLinkActive]="['option-item-active']"><div class="cont-inline"><span class="glyphicon glyphicon-ok"></span> Alta</div></div>
-    <div class="option-item" [routerLink]="['/conectado']" [routerLinkActive]="['option-item-active']"><div class="cont-inline"><span class="glyphicon glyphicon-link"></span> Conectado</div></div>
-    <div class="option-item" [routerLink]="['/estado']" [routerLinkActive]="['option-item-active']"><div class="cont-inline"><span class="glyphicon glyphicon-refresh"></span> Estado</div></div>
-    <div class="option-item" [routerLink]="['/grupos']" [routerLinkActive]="['option-item-active']"><div class="cont-inline"><span class="glyphicon glyphicon-th"></span> Grupos</div></div>
-    <div class="option-item" [routerLink]="['/nombre']" [routerLinkActive]="['option-item-active']"><div class="cont-inline"><span class="glyphicon glyphicon-save"></span> Nombre</div></div>
-    <div class="option-item" [routerLink]="['/prioridad']" [routerLinkActive]="['option-item-active']"><div class="cont-inline"><span class="glyphicon glyphicon-sort"></span> Prioridad</div></div>
-    <div class="option-item" [routerLink]="['/tecnologia']" [routerLinkActive]="['option-item-active']"><div class="cont-inline"><span class="glyphicon glyphicon-phone"></span> Tecnologia</div></div>
+    <div class="option-item" [routerLink]="['/inicio']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Inicio</div></div>
+    <div *ngIf="!activeSession" class="option-item" [routerLink]="['/login']" [routerLinkActive]="['option-item-active']"><div class="cont-inline" (session)="onSession($event)">Login</div></div>
+    <div *ngIf="activeSession" class="option-item" [routerLink]="['/alta']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Alta</div></div>
+    <div *ngIf="activeSession" class="option-item" [routerLink]="['/conectado']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Conectado</div></div>
+    <div *ngIf="activeSession" class="option-item" [routerLink]="['/estado']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Estado</div></div>
+    <div *ngIf="activeSession" class="option-item" [routerLink]="['/grupos']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Grupos</div></div>
+    <div *ngIf="activeSession" class="option-item" [routerLink]="['/nombre']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Nombre</div></div>
+    <div *ngIf="activeSession" class="option-item" [routerLink]="['/prioridad']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Prioridad</div></div>
+    <div *ngIf="activeSession" class="option-item" [routerLink]="['/tecnologia']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Tecnologia</div></div>
 </div>
 <div class="datos-content">
     <router-outlet></router-outlet>
