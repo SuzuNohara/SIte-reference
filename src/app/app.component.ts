@@ -12,8 +12,10 @@ export class AppComponent{
   activeSession: boolean;
   sessionName: string;
   userLoged: string;
+  logoRef: string;
 
   constructor(private cookies: CookieService, private router: Router){
+    this.logoRef = environment.AUTO_REFERENCE + "/img/sitios.png";
     this.router.navigate(['/']);
     this.userLoged = "";
     this.activeSession = false;

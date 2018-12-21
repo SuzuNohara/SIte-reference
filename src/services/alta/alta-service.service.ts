@@ -68,4 +68,27 @@ export class AltaServiceService {
     }
     return retorno;
   }
+
+  validarArchivoEstado(archivo: string): string[]{
+    let retorno:string[] = [];
+    let index: number = 0;
+    let lines: string[] = archivo.split("\n");
+    if(lines.length <= 1){
+      retorno.push("El documento no contiene sitios que dar de alta");
+    }
+    for(let linea of lines){
+      if(index == 0){
+        if(linea.indexOf(environment.EST_ENCABEZADOS) != 0){ 
+          retorno.push("El encabezado no está en el formato: " + environment.EST_ENCABEZADOS);
+        }
+      }
+      index++;
+      if(linea.split(",").length != environment.EST_ENCABEZADOS.split(",").length){
+        if(linea != '' && linea != '\n'){
+          retorno.push("La linea " + index + " no posee el formato correcto");
+        }
+      }
+    }
+    return retorno;
+  }
 }

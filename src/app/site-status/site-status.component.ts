@@ -10,11 +10,11 @@ import { map } from 'rxjs/operators';
 import { rmdUpdate } from '../../implements/rmdUpdate';
 
 @Component({
-  selector: 'app-site-conect',
-  templateUrl: './site-conect.component.html',
-  styleUrls: ['./site-conect.component.css']
+  selector: 'app-site-status',
+  templateUrl: './site-status.component.html',
+  styleUrls: ['./site-status.component.css']
 })
-export class SiteConectComponent implements OnInit {
+export class SiteStatusComponent implements OnInit {
 
   status: string;
   siteLocal: sitio;
@@ -45,6 +45,7 @@ export class SiteConectComponent implements OnInit {
     this.status = 'Comprobando sitio';
     this.select = new rmdSelect();
     let cond: condicion;
+    let prev: number;
     for(let col of environment.COL_AMX){
         this.select.columnas.push(col);
     }
@@ -64,7 +65,7 @@ export class SiteConectComponent implements OnInit {
     let condiciones: string = "";
     url += 'cSistema=' + environment.SISTEMA;
     url += '&cForma=' + this.select.formulario;
-    url += '&cColumnas=1';
+    url += '&cColumnas=1 7';
     for(let i = 0; i < this.select.condiciones.length; i++){
     condiciones += '\'' + this.select.condiciones[i].campo + '\'' + this.select.condiciones[i].realcion + '\'' + this.select.condiciones[i].valor + '\' ';
     }
@@ -72,7 +73,6 @@ export class SiteConectComponent implements OnInit {
     this.select.url = url;
     this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
       let update: rmdUpdate = new rmdUpdate();
-      this.insertG = new rmdInsert();
       this.select.rawResult = result;
       this.select.rawToResult();
       if(this.select.error){
@@ -102,32 +102,42 @@ export class SiteConectComponent implements OnInit {
           for(let con of this.retornoTec){
             if(con.campo == '1'){
               url += '&cID=' + con.valor;
+            }else if(con.campo = '7'){
+              prev = Number(con.valor);
             }
           }
-          condiciones += '\'536870989\'=\'' + this.site.conectado + '\' ';
-          condiciones += '\'536871141\'=\'' + this.site.ip + '\'';
-          url += '&cColumnas=' + condiciones;
-          update.url = url;
-          this.status = "Actualizando";
-          this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
-            if(result.indexOf('<UPDATED') >= 0){
-              this.status = "Sitio actualizado";
-              this.showClass = 'progress-bar bg-success progress-bar-striped alta-progress';
-              this.finishMethod( true, "Sitio actualizado " + this.site.nemonico);
-            }else if(result.indexOf('<ERROR') >= 0){
-              this.status = "Error al actualizar " + this.site.nemonico;
-              this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
-              this.finishMethod( false, "Error al actualizar: " + result.substring(result.indexOf('<ERROR') + '<ERROR'.length, result.indexOf('</ERROR>')));
-            }else{
-              this.status = 'Error desconocido ' + this.site.nemonico;
-              this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
-              this.finishMethod( false, "Error desconocido: " + result);
+          if(this.prevNextValidate( prev, this.site.status)){
+            condiciones += '\'7\'=\'' + this.site.status + '\' ';
+            if(this.site.status == 6){
+              condiciones += '\'536871183\'=\'-\'';
             }
-          }, error =>{
-            this.status = 'Error de conexion al actualizar ' + this.site.nemonico;
+            url += '&cColumnas=' + condiciones;
+            update.url = url;
+            this.status = "Actualizando";
+            this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
+              if(result.indexOf('<UPDATED') >= 0){
+                this.status = "Sitio actualizado";
+                this.showClass = 'progress-bar bg-success progress-bar-striped alta-progress';
+                this.finishMethod( true, "Sitio " + this.site.nemonico + " actualizado");
+              }else if(result.indexOf('<ERROR') >= 0){
+                this.status = "Error al actualizar " + this.site.nemonico;
+                this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
+                this.finishMethod( false, "Error al actualizar: " + this.site.nemonico + " - " + result.substring(result.indexOf('<ERROR') + '<ERROR'.length, result.indexOf('</ERROR>')));
+              }else{
+                this.status = 'Error desconocido';
+                this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
+                this.finishMethod( false, "Error desconocido: " + this.site.nemonico + " - " + result);
+              }
+            }, error =>{
+              this.status = 'Error de conexion al actualizar ' + this.site.nemonico;
+              this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
+              this.finishMethod( false, "Error de conexion a Remedy Control");
+            });
+          }else{
+            this.status = "Error al actualizar";
             this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
-            this.finishMethod( false, "Error de conexion a Remedy Control");
-          });
+            this.finishMethod( false, "Error al actualizar: El cambio de estado de " + this.site.nemonico + " no esta permitido (" + environment.STAT_NAMES[prev] + " - " + environment.STAT_NAMES[this.site.status] + ")");
+          }
         }
       }
     }, error =>{
@@ -135,6 +145,17 @@ export class SiteConectComponent implements OnInit {
       this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
       this.finishMethod( false, "Error de conexion a Remedy Control");
     });
+  }
+
+  prevNextValidate(prev: number, ant: number): boolean{
+    let retorno: boolean = false;
+    let actual: string = prev + '-' + ant;
+    for(let ind of environment.SATE_CHANGE_ALLOWED){
+      if(ind == actual){
+        retorno = true;
+      }
+    }
+    return retorno;
   }
 
   initMethod(){

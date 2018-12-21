@@ -23,6 +23,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AltaSitioComponent } from './alta-sitio/alta-sitio.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SiteConectComponent } from './site-conect/site-conect.component';
+import { SiteStatusComponent } from './site-status/site-status.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { SiteConectComponent } from './site-conect/site-conect.component';
     AlertaComponent,
     InformacionComponent,
     AltaSitioComponent,
-    SiteConectComponent
+    SiteConectComponent,
+    SiteStatusComponent
   ],
   imports: [
     BrowserModule,
