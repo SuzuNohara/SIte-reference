@@ -237,20 +237,22 @@ export class AltaComponent implements OnInit {
     let campos: string[];
     let site: sitio;
     for(let i = 1; i < lines.length; i++){
-      site = new sitio();
-      campos = lines[i].split(",");
-      site.numero = Number(campos[0]);
-      site.compania = campos[1];
-      site.nemonico = campos[2];
-      site.nombre = campos[3];
-      site.region = campos[4];
-      site.tecnologia = campos[5];
-      site.conectado = campos[6];
-      site.tipo = campos[7];
-      site.grupoSoporte = campos[8];
-      site.sitioAlarma = campos[9];
-      site.ip = campos[10];
-      this.sitios.push(site);
+      if(lines[i].length >= 2 && lines[i].charAt(0) != ','){
+        site = new sitio();
+        campos = lines[i].split(",");
+        site.numero = Number(campos[0]);
+        site.compania = campos[1];
+        site.nemonico = campos[2];
+        site.nombre = campos[3];
+        site.region = campos[4];
+        site.tecnologia = campos[5];
+        site.conectado = campos[6];
+        site.tipo = campos[7];
+        site.grupoSoporte = campos[8];
+        site.sitioAlarma = campos[9];
+        site.ip = campos[10];
+        this.sitios.push(site);
+      }
     }
   }
 
