@@ -24,6 +24,8 @@ import { AltaSitioComponent } from './alta-sitio/alta-sitio.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SiteConectComponent } from './site-conect/site-conect.component';
 import { SiteStatusComponent } from './site-status/site-status.component';
+import { GrupoSoporteComponent } from './grupo-soporte/grupo-soporte.component';
+import { NombreSitioComponent } from './nombre-sitio/nombre-sitio.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { SiteStatusComponent } from './site-status/site-status.component';
     InformacionComponent,
     AltaSitioComponent,
     SiteConectComponent,
-    SiteStatusComponent
+    SiteStatusComponent,
+    GrupoSoporteComponent,
+    NombreSitioComponent
   ],
   imports: [
     BrowserModule,
