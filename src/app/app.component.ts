@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../environments/environment';
 import { Router } from "@angular/router"
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,34 @@ export class AppComponent{
   sessionName: string;
   userLoged: string;
   logoRef: string;
+  key;
+
+  @HostListener('document:keypress', ['$event']) handleKeyboardEvent(event: KeyboardEvent) { 
+    this.key = event.key;
+    switch(this.key){
+      case 'a':
+        this.router.navigate(['/alta']);
+      break;
+      case 'o':
+        this.router.navigate(['/conectado']);
+      break;
+      case 'e':
+        this.router.navigate(['/estado']);
+      break;
+      case 'g':
+        this.router.navigate(['/grupos']);
+      break;
+      case 'n':
+        this.router.navigate(['/nombre']);
+      break;
+      case 'p':
+        this.router.navigate(['/prioridad']);
+      break;
+      case 't':
+        this.router.navigate(['/tecnologia']);
+      break;
+    }
+  }
 
   constructor(private cookies: CookieService, private router: Router){
     this.logoRef = environment.AUTO_REFERENCE + "/img/sitios.png";

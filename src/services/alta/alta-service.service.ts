@@ -28,7 +28,7 @@ export class AltaServiceService {
     let index: number = 0;
     let lines: string[] = archivo.split("\n");
     if(lines.length <= 1){
-      retorno.push("El documento no contiene sitios que dar de alta");
+      retorno.push("El documento no contiene sitios");
     }
     for(let linea of lines){
       if(index == 0){
@@ -51,7 +51,7 @@ export class AltaServiceService {
     let index: number = 0;
     let lines: string[] = archivo.split("\n");
     if(lines.length <= 1){
-      retorno.push("El documento no contiene sitios que dar de alta");
+      retorno.push("El documento no contiene sitios");
     }
     for(let linea of lines){
       if(index == 0){
@@ -74,7 +74,7 @@ export class AltaServiceService {
     let index: number = 0;
     let lines: string[] = archivo.split("\n");
     if(lines.length <= 1){
-      retorno.push("El documento no contiene sitios que dar de alta");
+      retorno.push("El documento no contiene sitios");
     }
     for(let linea of lines){
       if(index == 0){
@@ -97,7 +97,7 @@ export class AltaServiceService {
     let index: number = 0;
     let lines: string[] = archivo.split("\n");
     if(lines.length <= 1){
-      retorno.push("El documento no contiene sitios que dar de alta");
+      retorno.push("El documento no contiene sitios");
     }
     for(let linea of lines){
       if(index == 0){
@@ -120,7 +120,7 @@ export class AltaServiceService {
     let index: number = 0;
     let lines: string[] = archivo.split("\n");
     if(lines.length <= 1){
-      retorno.push("El documento no contiene sitios que dar de alta");
+      retorno.push("El documento no contiene sitios");
     }
     for(let linea of lines){
       if(index == 0){
@@ -130,6 +130,29 @@ export class AltaServiceService {
       }
       index++;
       if(linea.split(",").length != environment.NOMBRE_ENCABEZADOS.split(",").length){
+        if(linea != '' && linea != '\n'){
+          retorno.push("La linea " + index + " no posee el formato correcto");
+        }
+      }
+    }
+    return retorno;
+  }
+
+  validarArchivoTec(archivo: string): string[]{
+    let retorno:string[] = [];
+    let index: number = 0;
+    let lines: string[] = archivo.split("\n");
+    if(lines.length <= 1){
+      retorno.push("El documento no contiene sitios");
+    }
+    for(let linea of lines){
+      if(index == 0){
+        if(linea.indexOf(environment.TEC_ENCABEZADOS) != 0){ 
+          retorno.push("El encabezado no está en el formato: " + environment.TEC_ENCABEZADOS);
+        }
+      }
+      index++;
+      if(linea.split(",").length != environment.TEC_ENCABEZADOS.split(",").length){
         if(linea != '' && linea != '\n'){
           retorno.push("La linea " + index + " no posee el formato correcto");
         }
