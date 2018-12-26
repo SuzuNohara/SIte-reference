@@ -26,6 +26,7 @@ import { SiteConectComponent } from './site-conect/site-conect.component';
 import { SiteStatusComponent } from './site-status/site-status.component';
 import { GrupoSoporteComponent } from './grupo-soporte/grupo-soporte.component';
 import { NombreSitioComponent } from './nombre-sitio/nombre-sitio.component';
+import { TecnologiaSitioComponent } from './tecnologia-sitio/tecnologia-sitio.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { NombreSitioComponent } from './nombre-sitio/nombre-sitio.component';
     SiteConectComponent,
     SiteStatusComponent,
     GrupoSoporteComponent,
-    NombreSitioComponent
+    NombreSitioComponent,
+    TecnologiaSitioComponent
   ],
   imports: [
     BrowserModule,
