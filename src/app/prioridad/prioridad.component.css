@@ -1,0 +1,31 @@
+.console{
+    width: 100%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #ddd;
+    border-radius: 6px;
+    padding: 10px;
+    overflow: scroll;
+    max-height: 60vh;
+    margin-bottom: 10px;
+    overflow-y: scroll;
+}
+
+hr{
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.logArch{
+    max-height: 200px;
+    overflow: scroll;
+}
+
+.alerta{
+    padding: 0px;
+    margin: 2px;
+}
+
+button{
+    margin-right: 10px;
+}

@@ -20,6 +20,9 @@ export const environment = {
   FORM_AMX: 'AMX:TipoSitio_Site-EP',
   FORM_SITE: 'Site-EP',
   FORM_CR: 'CHG:Infrastructure Change',
+  FORM_COMPANIAS: 'COM:Company',
+  FORM_TECNOLOGIAS: 'AMX:Tecnologia_Site-EP',
+  FORM_TIPO_SITIO: 'AMX:TipoSitio_Site-EP',
 
   COL_AMX: ['536870918', '536870920', '536870921', '536870922', '536870914'],
   SGS_COLS_SEARCH: ['7', '8', '536870914', '536870925', '536870974', '730000001', '1000000001'],
