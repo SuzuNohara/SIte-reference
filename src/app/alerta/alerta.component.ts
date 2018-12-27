@@ -10,7 +10,7 @@ export class AlertaComponent implements OnInit {
   titulo: string;
   contenido: string;
   cierre: string;
-  private showAlert: boolean;
+  showAlert: boolean;
 
   constructor() {
     this.titulo = "titulo";

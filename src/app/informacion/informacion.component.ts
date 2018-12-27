@@ -10,7 +10,7 @@ export class InformacionComponent implements OnInit {
   titulo: string;
   contenido: string;
   cierre: string;
-  private showInfo: boolean;
+  showInfo: boolean;
 
   constructor() {
     this.titulo = "titulo";

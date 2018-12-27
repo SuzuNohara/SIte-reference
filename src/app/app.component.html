@@ -4,10 +4,6 @@
         <div class="cont-inline title-title" [routerLink]="['/home']">
             Gestión de sitios
         </div>
-        <ul class="dropdown-menu" aria-labelledby="opciones">
-        <li><a>Administración</a></li>
-        <li><a>Cerrar sesion</a></li>
-        </ul>
     </h4>
     <div class="title-item cont-inline float-right">
         <button class="btn btn-danger btn-sm" style="margin-top: 5px;" (click)="cerrarSesion()" *ngIf="activeSession">Cerrar Sesion</button>
@@ -25,13 +21,8 @@
     <div *ngIf="activeSession" class="option-item" [routerLink]="['/grupos']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Grupos</div></div>
     <div *ngIf="activeSession" class="option-item" [routerLink]="['/nombre']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Nombre</div></div>
     <div *ngIf="activeSession" class="option-item" [routerLink]="['/prioridad']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Prioridad</div></div>
-    <div *ngIf="activeSession" class="option-item" [routerLink]="['/tecnologia']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Tecnologia</div></div>
+    <div *ngIf="activeSession && sessionRoot" class="option-item" [routerLink]="['/tecnologia']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Tecnologia</div></div>
 </div>
 <div class="datos-content">
     <router-outlet></router-outlet>
-    <!--<div class="Block">
-    <label id="lbl">Code </label>
-    <input type='file' (change)="fileChanged($event)">
-    <button>Upload</button>
-    </div>-->
 </div>

@@ -228,14 +228,16 @@ export class ConexionesComponent implements OnInit {
     let campos: string[];
     let site: sitio;
     for(let i = 1; i < lines.length; i++){
-      site = new sitio();
-      campos = lines[i].split(",");
-      site.numero = Number(campos[0]);
-      site.nemonico = campos[1];
-      site.compania = campos[2];
-      site.conectado = campos[3];
-      site.ip = campos[4];
-      this.sitios.push(site);
+      if(lines[i].length >= 2 && lines[i].charAt(0) != ','){
+        site = new sitio();
+        campos = lines[i].split(",");
+        site.numero = Number(campos[0]);
+        site.nemonico = campos[1];
+        site.compania = campos[2];
+        site.conectado = campos[3];
+        site.ip = campos[4];
+        this.sitios.push(site);
+      }
     }
   }
 
