@@ -175,7 +175,7 @@ export class PrioridadComponent implements OnInit {
             if(select.error){
               this.crqClass = "form-control is-invalid";
               this.validaCRtext = "El CRQ no es valido";
-              this.validaCRclass = 'progress-bar bg-danger';
+              this.validaCRclass = 'progress-bar';
             }else{
               this.validaCRtext = "El CRQ es valido";
               this.crqClass = "form-control is-valid";
@@ -188,7 +188,7 @@ export class PrioridadComponent implements OnInit {
             this.alert.show();
           });
         }else{
-          this.validaCRclass = 'progress-bar bg-danger';
+          this.validaCRclass = 'progress-bar';
           this.validaCRtext = 'El CRQ no tiene el formato correcto';
           this.validaCRcarga = 100;
           this.crqClass = 'form-control is-invalid';
@@ -197,7 +197,7 @@ export class PrioridadComponent implements OnInit {
     }else{
       this.crqClass = "form-control is-invalid";
       this.validaCRtext = "El CRQ no es valido";
-      this.validaCRclass = 'progress-bar bg-danger';
+      this.validaCRclass = 'progress-bar';
     }
   }
 
@@ -245,7 +245,7 @@ export class PrioridadComponent implements OnInit {
       if(select.error){
         this.compClass = "form-control is-invalid";
         this.validaCOMPtext = "Error al buscar compañías";
-        this.validaCOMPclass = 'progress-bar bg-danger';
+        this.validaCOMPclass = 'progress-bar';
       }else{
         this.validaCOMPtext = "Compañías cargadas";
         this.validaCOMPclass = 'progress-bar bg-success';
@@ -263,7 +263,7 @@ export class PrioridadComponent implements OnInit {
       this.alert.show();
       this.compClass = "form-control is-invalid";
       this.validaCOMPtext = "Error al buscar compañías";
-      this.validaCOMPclass = 'progress-bar bg-danger';
+      this.validaCOMPclass = 'progress-bar';
       this.validaCOMPcarga = 100;
     });
   }
@@ -308,7 +308,7 @@ export class PrioridadComponent implements OnInit {
         if(select.error){
           this.tecClass = "form-control is-invalid";
           this.validaTECtext = "Error al buscar tecnologías";
-          this.validaTECclass = 'progress-bar bg-danger';
+          this.validaTECclass = 'progress-bar';
         }else{
           this.validaTECtext = "Tecnologías cargadas";
           this.validaTECclass = 'progress-bar bg-success';
@@ -326,7 +326,7 @@ export class PrioridadComponent implements OnInit {
         this.alert.show();
         this.tecClass = "form-control is-invalid";
         this.validaTECtext = "Error al buscar compañías";
-        this.validaTECclass = 'progress-bar bg-danger';
+        this.validaTECclass = 'progress-bar';
         this.validaTECcarga = 100;
       });
     }
@@ -377,7 +377,7 @@ export class PrioridadComponent implements OnInit {
         if(select.error){
           this.tipoClass = "form-control is-invalid";
           this.validaTIPOtext = "Error al buscar tecnologías";
-          this.validaTIPOclass = 'progress-bar bg-danger';
+          this.validaTIPOclass = 'progress-bar';
         }else{
           this.validaTIPOtext = "Tipos de sitios cargados";
           this.validaTIPOclass = 'progress-bar bg-success';
@@ -395,7 +395,7 @@ export class PrioridadComponent implements OnInit {
         this.alert.show();
         this.tipoClass = "form-control is-invalid";
         this.validaTIPOtext = "Error al buscar compañías";
-        this.validaTIPOclass = 'progress-bar bg-danger';
+        this.validaTIPOclass = 'progress-bar';
         this.validaTIPOcarga = 100;
       });
     }
@@ -451,7 +451,7 @@ export class PrioridadComponent implements OnInit {
         if(select.error){
           this.prioClass = "form-control is-invalid";
           this.validaPRIOtext = "Error al buscar prioridad";
-          this.validaPRIOclass = 'progress-bar bg-danger';
+          this.validaPRIOclass = 'progress-bar';
         }else{
           this.validaPRIOtext = "Prioridad Obtenida";
           this.validaPRIOclass = 'progress-bar bg-success';
@@ -469,7 +469,7 @@ export class PrioridadComponent implements OnInit {
         this.alert.show();
         this.prioClass = "form-control is-invalid";
         this.validaPRIOtext = "Error al buscar compañías";
-        this.validaPRIOclass = 'progress-bar bg-danger';
+        this.validaPRIOclass = 'progress-bar';
         this.validaPRIOcarga = 100;
       });
     }
