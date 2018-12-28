@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
-  URL_INSERT: 'http://remedycontrol.oymcloud.americamovil.com:8080/Remedy/servicios/RMDInsert?',
-  URL_UPDATE: 'http://remedycontrol.oymcloud.americamovil.com:8080/Remedy/servicios/RMDUpdate?',
-  URL_SELECT: 'http://remedycontrol.oymcloud.americamovil.com:8080/Remedy/servicios/RMDSelect?',
-  AUTO_REFERENCE: 'http://remedycontrol.oymcloud.americamovil.com:8080/SitiosV3',
+  URL_INSERT: 'http://10.119.155.72:8080/Remedy/servicios/RMDInsert?',
+  URL_UPDATE: 'http://10.119.155.72:8080/Remedy/servicios/RMDUpdate?',
+  URL_SELECT: 'http://10.119.155.72:8080/Remedy/servicios/RMDSelect?',
+  AUTO_REFERENCE: 'http://10.119.155.72:8080/SitiosV3',
   MAIL_SERVICE: 'http://10.119.155.72:8080/blankServices/mail.jsp',
 
   SISTEMA: 'SITIOS',
@@ -13,6 +13,9 @@ export const environment = {
   FORM_AMX: 'AMX:TipoSitio_Site-EP',
   FORM_SITE: 'Site-EP',
   FORM_CR: 'CHG:Infrastructure Change',
+  FORM_COMPANIAS: 'COM:Company',
+  FORM_TECNOLOGIAS: 'AMX:Tecnologia_Site-EP',
+  FORM_TIPO_SITIO: 'AMX:TipoSitio_Site-EP',
 
   COL_AMX: ['536870918', '536870920', '536870921', '536870922', '536870914'],
   SGS_COLS_SEARCH: ['7', '8', '536870914', '536870925', '536870974', '730000001', '1000000001'],
@@ -35,6 +38,9 @@ export const environment = {
   ALTA_ENCABEZADOS: 'NUM,COMPANIA,NEMONICO,NOMBRE,REGION,TECNOLOGIA,SITIO CONECTADO A ,TIPO DE SITIO,GRUPO QUE ATIENDE,SITIO_ALARMA,IP',
   CONN_ENCABEZADOS: 'NUM,NEMONICO,COMPANIA,SITIO_CONECTADO_A,IP',
   EST_ENCABEZADOS: 'NUM,NEMONICO,COMPANIA,NUM_ESTADO',
+  GRUPO_ENCABEZADOS: 'NUM,NEMONICO,COMPANIA,GRUPO_SOPORTE',
+  NOMBRE_ENCABEZADOS: 'NUM,NEMONICO,COMPANIA,NOMBRE_ACTUAL,NOMBRE_NUEVO',
+  TEC_ENCABEZADOS: 'NUM,NEMONICO,COMPANIA,TECNOLOGIA_CI,TIPO_CI',
 
   SATE_CHANGE_ALLOWED: ['0-4','0-7','1-7','2-7','3-7','4-5','5-4','5-6','6-7'],
   STAT_NAMES: ['SITIO_NUEVO','X','X','X','OPERANDO','NO OPERANDO','DESINSTALADO','CANCELADO']
