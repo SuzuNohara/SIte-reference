@@ -10,9 +10,11 @@ import { PrioridadComponent } from './prioridad/prioridad.component';
 import { TecnologiaComponent } from './tecnologia/tecnologia.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { LoginComponent } from './login/login.component';
+import { SitesModelComponent } from './sites-model/sites-model.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/inicio', pathMatch: 'full' },
+    { path: 'model', component: SitesModelComponent },
     { path: 'alta', component: AltaComponent },
     { path: 'conectado', component: ConexionesComponent },
     { path: 'estado', component: EstadoComponent },
