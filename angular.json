@@ -31,7 +31,8 @@
               "./node_modules/jquery/dist/jquery.js",
               "./node_modules/popper.js/dist/popper.js",
               "./node_modules/bootstrap/dist/js/bootstrap.js",
-              "./node_modules/zzzrootpreload/zzzROOTPreload.js"
+              "./node_modules/zzzrootpreload/zzzROOTPreload.js",
+              "./node_modules/chart.js/src/chart.js"
             ]
           },
           "configurations": {

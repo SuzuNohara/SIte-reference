@@ -29,6 +29,8 @@ import { NombreSitioComponent } from './nombre-sitio/nombre-sitio.component';
 import { TecnologiaSitioComponent } from './tecnologia-sitio/tecnologia-sitio.component';
 import { SitesModelComponent } from './sites-model/sites-model.component';
 
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +60,8 @@ import { SitesModelComponent } from './sites-model/sites-model.component';
     routing,
     FormsModule,
     HttpModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ChartsModule
   ],
   providers: [
     CookieService
