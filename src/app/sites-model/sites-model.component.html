@@ -1,33 +1,37 @@
 <div class="container-fluid controles">
   <h4 class="d-inline">Controles</h4>
-  <button class="d-inline btn btn-danger btn-sm float-right" style="margin-top: 0.7vh; height: 3vh; font-size: 2vh; padding-top: 0vh; padding-let: 1vh; padding-right: 1vh;">Comenzar</button>
+  <button class="d-inline btn btn-dark btn-sm float-right start">Comenzar</button>
 </div>
 
 <div class="container-fluid lienzo">
-    <div class="row">
-        <div class="col-md-6">
-          <div style="display: block;">
-            <canvas baseChart width="400" height="400"
-                    [datasets]="lineChartData"
-                    [labels]="lineChartLabels"
-                    [options]="lineChartOptions"
-                    [colors]="lineChartColors"
-                    [legend]="lineChartLegend"
-                    [chartType]="lineChartType"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></canvas>
+  <div class="row">
+    <div class="col">
+      <canvas baseChart width="400" height="400"
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [colors]="lineChartColors"
+        [legend]="lineChartLegend"
+        [chartType]="lineChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
+    </div>
+    <div class="col">
+      OPERACIONES:
+      <div class="console">
+        <div class="bars" *ngFor="let bar of bars">
+          <div class="barContainer" *ngIf="bar.show">
+            {{ bar.title }}
+            <div class="progress">
+              <div [ngClass]="bar.class + ' progress-bar'" role="progressbar" [ngStyle]="{ 'width': bar.carga + '%', 'background-color': bar.color + '' }" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <hr>
           </div>
         </div>
-        <div class="col-md-6" style="margin-bottom: 10px">
-          <table class="table table-responsive table-condensed">
-            <tr>
-              <th *ngFor="let label of lineChartLabels">{{label}}</th>
-            </tr>
-            <tr *ngFor="let d of lineChartData">
-              <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
-            </tr>
-          </table>
-          <button (click)="randomize()">CLICK</button>
-        </div>
       </div>
+    </div>
+  </div>
+  <div class="diagrama">
+    
+  </div>
 </div>
