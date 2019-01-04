@@ -31,7 +31,35 @@
       </div>
     </div>
   </div>
-  <div class="diagrama">
+  <div class="diagrama" *ngIf="nodos.length">
+    <div class="nodo" *ngFor="let nodo of nodos; index as i" [ngStyle]="{
+      'width': nodo.size + 'vw',
+      'height': nodo.size + 'vw',
+      'top': nodo.top + 'px',
+      'left': nodo.left + 'px',
+      'border-radius': nodo.radius + 'vw',
+      'border-width': nodo.border + 'vw',
+      'background-color': nodo.bgcolor,
+      'font-size': nodo.font + 'vw',
+      'padding': nodo.padding + 'vw',
+      'opacity': nodo.opacidad
+      }">
+      {{ nodo.value }}
+    </div>
     
+    <div class="arista" *ngFor="let arista of aristas; index as i" [ngStyle]="{
+      'width': arista.width + 'vw',
+      'height': arista.height + 'vw',
+      'transform': 'rotate(' + arista.angle + 'deg)',
+      'top': arista.top + 'vw',
+      'left': arista.left + 'vw',
+      'border-width': arista.border + 'vw',
+      'background-color': arista.bgcolor,
+      'font-size': arista.font + 'vw',
+      'transform-origin': '0 0',
+      'opacity': arista.opacidad
+      }">
+      {{ arista.value }}
+    </div>
   </div>
 </div>

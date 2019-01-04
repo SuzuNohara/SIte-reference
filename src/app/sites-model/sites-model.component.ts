@@ -7,6 +7,8 @@ import { condicion } from '../../implements/condicion';
 import { endStatus } from '../../implements/endStatus';
 import { environment } from '../../environments/environment';
 import { entry } from '../../implements/entry';
+import { Nodo } from '../../implements/nodo';
+import { Arista } from '../../implements/arista';
 //import { AlertaComponent } from '../alerta/alerta.component';
 
 @Component({
@@ -23,6 +25,8 @@ export class SitesModelComponent implements OnInit {
   lineChartLegend: boolean;
   lineChartType: string;
   bars: bar[];
+  nodos: Nodo[];
+  arista: Arista[];
   private nuevos: number[];
   private operando: number[];
   private nooperando: number[];
@@ -31,6 +35,8 @@ export class SitesModelComponent implements OnInit {
   private operandoData: entry[];
 
   constructor(private http: Http) {
+    this.nodos = [];
+    this.arista = [];
     this.operandoData = [];
     this.nuevos = [0,0,0,0];
     this.operando = [0,0,0,0];
@@ -38,11 +44,7 @@ export class SitesModelComponent implements OnInit {
     this.desinstalado = [0,0,0,0];
     this.cancelado = [0,0,0,0];
     this.lineChartData = [
-      {data: this.nuevos, label: 'Nuevo'},
-      {data: this.operando, label: 'Operando'},
-      {data: this.nooperando, label: 'No operando'},
-      {data: this.desinstalado, label: 'Desinstalado'},
-      {data: this.cancelado, label: 'Cancelado'}
+      {data: this.operando, label: 'Operando'}
     ];
     this.lineChartLabels = ['Sin info', 'IP', 'Direccion', 'Coordenadas'];
     this.lineChartOptions = {responsive: true};
@@ -50,13 +52,20 @@ export class SitesModelComponent implements OnInit {
     this.lineChartType = 'line';
     this.lineChartColors = [
       { // grey
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
+        backgroundColor: 'rgba(14,159,177,0.2)',
+        borderColor: 'rgba(14,159,177,1)',
+        pointBackgroundColor: 'rgba(14,159,177,1)',
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+        pointHoverBorderColor: 'rgba(14,159,177,0.8)'
       },{ // dark grey
+        backgroundColor: 'rgba(148,15,177,0.2)',
+        borderColor: 'rgba(148,15,177,1)',
+        pointBackgroundColor: 'rgba(148,15,177,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,15,177,0.8)'
+      },{ // grey
         backgroundColor: 'rgba(77,83,96,0.2)',
         borderColor: 'rgba(77,83,96,1)',
         pointBackgroundColor: 'rgba(77,83,96,1)',
@@ -64,19 +73,12 @@ export class SitesModelComponent implements OnInit {
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: 'rgba(77,83,96,1)'
       },{ // grey
-        backgroundColor: 'rgba(14,159,177,0.2)',
-        borderColor: 'rgba(14,159,177,1)',
-        pointBackgroundColor: 'rgba(14,159,177,1)',
+        backgroundColor: 'rgba(148,159,177,0.2)',
+        borderColor: 'rgba(148,159,177,1)',
+        pointBackgroundColor: 'rgba(148,159,177,1)',
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(14,159,177,0.8)'
-      },{ // grey
-        backgroundColor: 'rgba(148,15,177,0.2)',
-        borderColor: 'rgba(148,15,177,1)',
-        pointBackgroundColor: 'rgba(148,15,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,15,177,0.8)'
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
       },{ // grey
         backgroundColor: 'rgba(148,159,17,0.2)',
         borderColor: 'rgba(148,159,17,1)',
@@ -90,11 +92,11 @@ export class SitesModelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sitiosNuevos();
+    //this.sitiosNuevos();
     this.sitiosOperando();
-    this.sitiosNoOperando();
-    this.sitiosDesinstalados();
-    this.sitiosCancelados();
+    //this.sitiosNoOperando();
+    //this.sitiosDesinstalados();
+    //this.sitiosCancelados();
   }
 
   sitiosNuevos(): void{
@@ -176,7 +178,7 @@ export class SitesModelComponent implements OnInit {
     let select: rmdSelect = new rmdSelect();
     barSN.title = "Consultando Sitios Operando";
     barSN.show = true;
-    barSN.color = 'rgba(77,83,96,1)';
+    barSN.color = 'rgba(14,159,177,1)';
     let con: condicion = new condicion();
     con.campo = '7';
     con.realcion = '=';
@@ -201,7 +203,6 @@ export class SitesModelComponent implements OnInit {
     this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
       select.rawResult = result;
       select.rawToResult();
-      this.operandoData = select.result;
       barSN.carga = 100;
       if(select.error){
         barSN.title = "Operando (SIN DATOS)";
@@ -222,6 +223,7 @@ export class SitesModelComponent implements OnInit {
           }
           if(coordenadas){
             this.operando[3]++;
+            this.operandoData.push(sitio);
           }else if(direccion){
             this.operando[2]++;
           }else if(ip){
@@ -232,13 +234,10 @@ export class SitesModelComponent implements OnInit {
         }
         this.lineChartData[0].data = this.nuevos;
         this.lineChartData = [
-          {data: this.nuevos, label: 'Nuevo'},
-          {data: this.operando, label: 'Operando'},
-          {data: this.nooperando, label: 'No operando'},
-          {data: this.desinstalado, label: 'Desinstalado'},
-          {data: this.cancelado, label: 'Cancelado'}
+          {data: this.operando, label: 'Operando'}
         ];
       }
+      this.modelData();
     }, error =>{
       //error
     });
@@ -461,6 +460,55 @@ export class SitesModelComponent implements OnInit {
     }, error =>{
       //error
     });
+  }
+
+  async modelData(){
+    let limites: number[] = [-90,-180,90,180];
+    for(let site of this.operandoData){
+      for(let ent of site.entrada){
+        if(ent.id == '536870994'){ // latitud (vertical)
+          if(Number(ent.valor) > limites[0]){limites[0] = Number(ent.valor);}
+          if(Number(ent.valor) < limites[2]){limites[2] = Number(ent.valor);}
+        }else if(ent.id == '536870993'){ // Lingitud (horizontal)
+          if(Number(ent.valor) > limites[1]){limites[1] = Number(ent.valor);}
+          if(Number(ent.valor) < limites[3]){limites[3] = Number(ent.valor);}
+        }
+      }
+    }
+    for(let i: number = 0; i < limites.length; i++){
+      limites[i] = Math.floor(limites[i]) + (limites[i] > 0? 1:0);
+    }
+    for(let site of this.operandoData){
+      let nodo: Nodo = new Nodo();
+      nodo.bgcolor = 'rgba(14,159,177,1)';
+      nodo.border = 0.05;
+      nodo.font = 0.1;
+      nodo.informacion = '<p><n><c><l><lo></p>';
+      for(let data of site.entrada){
+        if(data.id == '536870925'){
+          nodo.informacion = nodo.informacion.replace('<n>','Nemonico: ' + data.valor + '<br>');
+          nodo.identificador = data.valor;
+        } else if(data.id == '1000000001'){
+          nodo.informacion = nodo.informacion.replace('<c>','Compañía: ' + data.valor + '<br>');
+        } else if(data.id == '536870994'){
+          nodo.informacion = nodo.informacion.replace('<l>','Latitud: ' + data.valor + '<br>');
+          nodo.top = (Number(data.valor) - limites[0])*(-50);
+        } else if(data.id == '536870993'){
+          nodo.informacion = nodo.informacion.replace('<lo>','Longitud: ' + data.valor + '');
+          nodo.left = (Number(data.valor) - limites[3])*(50);
+        }else if(data.id == '536870989'){nodo.relaciones = [data.valor];}
+      }
+      nodo.opacidad = 1;
+      nodo.padding = 0.4;
+      nodo.posicion = 0;
+      nodo.radius = 0.5;
+      nodo.relval = [];
+      nodo.size = 1;
+      nodo.value = '-';
+      nodo.visitado = false;
+      this.nodos.push(nodo);
+      console.log(nodo.left + '*' + nodo.top);
+    }
   }
 
   public chartClicked(e: any): void {
