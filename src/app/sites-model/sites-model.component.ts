@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { bar } from '../../implements/bar';
 import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
 import { rmdSelect } from '../../implements/rmdSelect';
 import { condicion } from '../../implements/condicion';
-import { endStatus } from '../../implements/endStatus';
 import { environment } from '../../environments/environment';
 import { entry } from '../../implements/entry';
 import { Nodo } from '../../implements/nodo';
 import { Arista } from '../../implements/arista';
-//import { AlertaComponent } from '../alerta/alerta.component';
+import { AlertaComponent } from '../alerta/alerta.component';
+import { InformacionComponent } from '../informacion/informacion.component';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCogs } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sites-model',
@@ -18,15 +21,29 @@ import { Arista } from '../../implements/arista';
 })
 export class SitesModelComponent implements OnInit {
 
+  @ViewChild(AlertaComponent) alerta: AlertaComponent;
+  @ViewChild(InformacionComponent) info: InformacionComponent;
+
+  faQuestionCircle = faQuestionCircle;
+  faTimesCircle = faTimesCircle;
+  faCogs = faCogs;
+
   lineChartData: Array<any>;
   lineChartLabels: Array<any>;
   lineChartOptions: any;
   lineChartColors: Array<any>;
   lineChartLegend: boolean;
   lineChartType: string;
+  showDiagram: boolean;
   bars: bar[];
   nodos: Nodo[];
   arista: Arista[];
+  companias: string[];
+  tecnologias: string[];
+  tipos: string[];
+  regiones: string[];
+  grupos: string[];
+  entornoBar: bar;
   private nuevos: number[];
   private operando: number[];
   private nooperando: number[];
@@ -34,10 +51,41 @@ export class SitesModelComponent implements OnInit {
   private cancelado: number[];
   private operandoData: entry[];
 
+  compSize: number;
+  tecSize: number;
+  tipSize: number;
+  gruSize: number;
+  regSize: number;
+
   constructor(private http: Http) {
+    this.restart();
+  }
+
+  ngOnInit() {
+    this.companias = [];
+    this.tecnologias = [];
+    this.tipos = [];
+    this.regiones = [];
+    this.grupos = [];
+    this.entornoBar = new bar();
+    this.bars.push(this.entornoBar);
+    this.cargarEntorno();
+    this.compSize = 1;
+    this.tecSize = 1;
+    this.tipSize = 1;
+    this.gruSize = 1;
+    this.regSize = 1;
+  }
+
+  starCheck(){
+    this.sitiosOperando();
+  }
+
+  restart(){
     this.nodos = [];
     this.arista = [];
     this.operandoData = [];
+    this.showDiagram = false;
     this.nuevos = [0,0,0,0];
     this.operando = [0,0,0,0];
     this.nooperando = [0,0,0,0];
@@ -91,12 +139,17 @@ export class SitesModelComponent implements OnInit {
     this.bars = [];
   }
 
-  ngOnInit() {
-    //this.sitiosNuevos();
-    this.sitiosOperando();
-    //this.sitiosNoOperando();
-    //this.sitiosDesinstalados();
-    //this.sitiosCancelados();
+  show(){
+    if(this.nodos.length <= 0){
+      this.alerta.setInfo('Error de datos','<p>Aun no hay datos que mostrar','OK');
+      this.alerta.show();
+    }else{
+      this.showDiagram = true;
+    }
+  }
+
+  closeDiagram(){
+    this.showDiagram = false;
   }
 
   sitiosNuevos(): void{
@@ -519,4 +572,340 @@ export class SitesModelComponent implements OnInit {
     console.log(e);
   }
 
+  cargarEntorno(){
+    this.entornoBar.title = "Entorno";
+    this.entornoBar.show = true;
+    this.entornoBar.class = 'bg-dark';
+    this.entornoBar.carga = 0;
+    this.cargaCompanias();
+  }
+
+  //  Información de fomularios
+  cargaCompanias(){
+    this.companias;
+    let select: rmdSelect;
+    select = new rmdSelect();
+    select.columnas.push('1');
+    select.columnas.push('1000000001');
+    let con: condicion = new condicion();
+    con.campo = '1000003965';
+    con.realcion = '=';
+    con.valor = '%25';
+    select.condiciones.push(con);
+    con = new condicion();
+    con.campo = '1000000006';
+    con.realcion = '=';
+    con.valor = '%25Operating Company%25';
+    select.condiciones.push(con);
+    con = new condicion();
+    con.campo = '7';
+    con.realcion = '=';
+    con.valor = '1';
+    select.condiciones.push(con);
+    select.formulario = environment.FORM_COMPANIAS;
+    select.usuario = environment.SISTEMA;
+    let url: string = environment.URL_SELECT;
+    let condiciones: string = "";
+    url += 'cSistema=' + environment.SISTEMA;
+    url += '&cForma=' + select.formulario;
+    url += '&cColumnas=' + select.columnas.join(' ');
+    for(let i = 0; i < select.condiciones.length; i++){
+      condiciones += '\'' + select.condiciones[i].campo + '\'' + select.condiciones[i].realcion + '\'' + select.condiciones[i].valor + '\' ';
+    }
+    url += '&cCondiciones=' + condiciones;
+    select.url = url;
+    this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
+      select.rawResult = result;
+      select.rawToResult();
+      if(select.error){
+        this.entornoBar.title = 'error';
+        this.entornoBar.class = 'bg-danger';
+      }else{
+        for(let ress of select.result){
+          for(let resss of ress.entrada){
+            if(resss.id == '1000000001'){
+              this.companias.push(resss.valor);
+            }
+          }
+        }
+        this.companias.sort();
+        this.entornoBar.carga += 20;
+        this.cargaTecnologias();
+        this.cargaRegiones();
+        this.cargarGruposSoporte();
+      }
+    }, error =>{
+      this.alerta.setInfo("Error", "<p>Error al consultar la informacion, comprueba tu conexion a internet</p><p>" + error + "</p>", "ok");
+      this.alerta.show();
+      this.entornoBar.title = 'error';
+      this.entornoBar.class = 'bg-danger';
+    });
+  }
+
+  cargaTecnologias(){    
+    let select: rmdSelect;
+    select = new rmdSelect();
+    select.columnas.push('1');
+    select.columnas.push('536870913');
+    let con: condicion = new condicion();
+    con.campo = '1000000001';
+    con.realcion = '=';
+    con.valor = '(' + this.companias.join(',') + ')';
+    select.condiciones.push(con);
+    con = new condicion();
+    con.campo = '7';
+    con.realcion = '=';
+    con.valor = '0';
+    select.condiciones.push(con);
+    select.formulario = environment.FORM_TECNOLOGIAS;
+    select.usuario = environment.SISTEMA;
+    let url: string = environment.URL_SELECT;
+    let condiciones: string = "";
+    url += 'cSistema=' + environment.SISTEMA;
+    url += '&cForma=' + select.formulario;
+    url += '&cColumnas=' + select.columnas.join(' ');
+    for(let i = 0; i < select.condiciones.length; i++){
+      condiciones += '\'' + select.condiciones[i].campo + '\'' + select.condiciones[i].realcion + '\'' + select.condiciones[i].valor + '\' ';
+    }
+    url += '&cCondiciones=' + condiciones;
+    select.url = url;
+    this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
+      select.rawResult = result;
+      select.rawToResult();
+      if(select.error){
+        this.entornoBar.title = 'error';
+        this.entornoBar.class = 'bg-danger';
+      }else{
+        for(let ress of select.result){
+          for(let resss of ress.entrada){
+            if(resss.id == '536870913'){
+              if(!this.tecnologias.includes(resss.valor)){
+                this.tecnologias.push(resss.valor);
+              }
+            }
+          }
+        }
+        this.tecnologias.sort();
+        this.entornoBar.carga += 20;
+        this.cargaTipos();
+      }
+    }, error =>{
+      this.alerta.setInfo("Error", "<p>Error al consultar la informacion, comprueba tu conexion a internet</p><p>" + error + "</p>", "ok");
+      this.alerta.show();
+      this.entornoBar.title = 'error';
+      this.entornoBar.class = 'bg-danger';
+    });
+  }
+
+  cargaTipos(){
+    this.tipos = [];
+    let select: rmdSelect;
+    select = new rmdSelect();
+    select.columnas.push('1');
+    select.columnas.push('536870923');
+    let con: condicion = new condicion();
+    con.campo = '1000000001';
+    con.realcion = '=';
+    con.valor = '(' + this.companias.join(',') + ')';
+    select.condiciones.push(con);
+    con = new condicion();
+    con.campo = '536870913';
+    con.realcion = '=';
+    con.valor = '(' + this.tecnologias.join(',') + ')';
+    select.condiciones.push(con);
+    con = new condicion();
+    con.campo = '7';
+    con.realcion = '=';
+    con.valor = '0';
+    select.condiciones.push(con);
+    select.formulario = environment.FORM_TIPO_SITIO;
+    select.usuario = environment.SISTEMA;
+    let url: string = environment.URL_SELECT;
+    let condiciones: string = "";
+    url += 'cSistema=' + environment.SISTEMA;
+    url += '&cForma=' + select.formulario;
+    url += '&cColumnas=' + select.columnas.join(' ');
+    for(let i = 0; i < select.condiciones.length; i++){
+      condiciones += '\'' + select.condiciones[i].campo + '\'' + select.condiciones[i].realcion + '\'' + select.condiciones[i].valor + '\' ';
+    }
+    url += '&cCondiciones=' + condiciones;
+    select.url = url;
+    this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
+      select.rawResult = result;
+      select.rawToResult();
+      if(select.error){
+        this.entornoBar.title = 'error';
+        this.entornoBar.class = 'bg-danger';
+      }else{
+        for(let ress of select.result){
+          for(let resss of ress.entrada){
+            if(resss.id == '536870923'){
+              if(!this.tipos.includes(resss.valor)){
+                this.tipos.push(resss.valor);
+              }
+            }
+          }
+        }
+        this.entornoBar.carga += 20;
+      }
+    }, error =>{
+      this.alerta.setInfo("Error", "<p>Error al consultar la informacion, comprueba tu conexion a internet</p><p>" + error + "</p>", "ok");
+      this.alerta.show();
+      this.entornoBar.title = 'error';
+      this.entornoBar.class = 'bg-danger';
+    });
+  }
+
+  cargaRegiones(){
+    this.regiones = [];
+    let select: rmdSelect;
+    select = new rmdSelect();
+    select.columnas.push('1');
+    select.columnas.push('200000012');
+    select.columnas.push('1000000001');
+    let con: condicion = new condicion();
+    con.campo = '1000000001';
+    con.realcion = '=';
+    con.valor = '(' + this.companias.join(',') + ')';
+    select.condiciones.push(con);
+    con = new condicion();
+    con.campo = '7';
+    con.realcion = '=';
+    con.valor = '1';
+    select.condiciones.push(con);
+    select.formulario = environment.FORM_REGIONES;
+    select.usuario = environment.SISTEMA;
+    let url: string = environment.URL_SELECT;
+    let condiciones: string = "";
+    url += 'cSistema=' + environment.SISTEMA;
+    url += '&cForma=' + select.formulario;
+    url += '&cColumnas=' + select.columnas.join(' ');
+    for(let i = 0; i < select.condiciones.length; i++){
+      condiciones += '\'' + select.condiciones[i].campo + '\'' + select.condiciones[i].realcion + '\'' + select.condiciones[i].valor + '\' ';
+    }
+    url += '&cCondiciones=' + condiciones;
+    select.url = url;
+    this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
+      select.rawResult = result;
+      select.rawToResult();
+      if(select.error){
+        this.entornoBar.title = 'error';
+        this.entornoBar.class = 'bg-danger';
+      }else{
+        for(let ress of select.result){
+          for(let resss of ress.entrada){
+            if(resss.id == '200000012'){
+              if(!this.regiones.includes(resss.valor)){
+                this.regiones.push(resss.valor);
+              }
+            }
+          }
+        }
+        this.entornoBar.carga += 20;
+        this.regiones.sort();
+      }
+    }, error =>{
+      this.alerta.setInfo("Error", "<p>Error al consultar la informacion, comprueba tu conexion a internet</p><p>" + error + "</p>", "ok");
+      this.alerta.show();
+      this.entornoBar.title = 'error';
+      this.entornoBar.class = 'bg-danger';
+    });
+  }
+
+  cargarGruposSoporte(){
+    this.grupos = [];
+    let select: rmdSelect;
+    select = new rmdSelect();
+    select.columnas.push('1');
+    select.columnas.push('1000000014');
+    select.columnas.push('1000000001');
+    let con: condicion = new condicion();
+    con.campo = '1000000001';
+    con.realcion = '=';
+    con.valor = '(' + this.companias.join(',') + ')';
+    select.condiciones.push(con);
+    con = new condicion();
+    con.campo = '7';
+    con.realcion = '=';
+    con.valor = '1';
+    select.condiciones.push(con);
+    select.formulario = environment.FORM_GRUPOS_SOPORTE;
+    select.usuario = environment.SISTEMA;
+    let url: string = environment.URL_SELECT;
+    let condiciones: string = "";
+    url += 'cSistema=' + environment.SISTEMA;
+    url += '&cForma=' + select.formulario;
+    url += '&cColumnas=' + select.columnas.join(' ');
+    for(let i = 0; i < select.condiciones.length; i++){
+      condiciones += '\'' + select.condiciones[i].campo + '\'' + select.condiciones[i].realcion + '\'' + select.condiciones[i].valor + '\' ';
+    }
+    url += '&cCondiciones=' + condiciones;
+    select.url = url;
+    console.log(url);
+    this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
+      select.rawResult = result;
+      select.rawToResult();
+      if(select.error){
+        this.entornoBar.title = 'error';
+        this.entornoBar.class = 'bg-danger';
+      }else{
+        for(let ress of select.result){
+          for(let resss of ress.entrada){
+            if(resss.id == '1000000014'){
+              if(!this.grupos.includes(resss.valor)){
+                this.grupos.push(resss.valor);
+              }
+            }
+          }
+        }
+        this.entornoBar.carga += 20;
+        this.grupos.sort();
+      }
+    }, error =>{
+      this.alerta.setInfo("Error", "<p>Error al consultar la informacion, comprueba tu conexion a internet</p><p>" + error + "</p>", "ok");
+      this.alerta.show();
+      this.entornoBar.title = 'error';
+      this.entornoBar.class = 'bg-danger';
+    });
+  }
+
+  adjustSize(some: string){
+    switch(some){
+      case 'com':
+        this.compSize = 10;
+      break;
+      case 'gru':
+        this.gruSize = 10;
+      break;
+      case 'tec':
+        this.tecSize = 10;
+      break;
+      case 'tip':
+        this.tipSize = 10;
+      break;
+      case 'reg':
+        this.regSize = 10;
+      break;
+    }
+  }
+
+  deAdjustSize(some: string){
+    switch(some){
+      case 'com':
+        this.compSize = 1;
+      break;
+      case 'gru':
+        this.gruSize = 1;
+      break;
+      case 'tec':
+        this.tecSize = 1;
+      break;
+      case 'tip':
+        this.tipSize = 1;
+      break;
+      case 'reg':
+        this.regSize = 1;
+      break;
+    }
+  }
 }

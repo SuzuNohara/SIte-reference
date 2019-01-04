@@ -1,5 +1,4 @@
 .lienzo{
-    height: 78vh;
     width: 90vw;
     margin-left: 5vw;
     border-color: #ddd;
@@ -7,14 +6,13 @@
     border-width: 1px;
     border-radius: 8px;
     background-color: #fcfcfc;
-    overflow-y: scroll;
-    overflow-x: hidden;
     padding: 15px;
+    overflow-y: auto;
 }
 
 .controles{
     width: 90vw;
-    height: 5vh;
+    height: 6vh;
     margin-bottom: 1vh;
     margin-left: 5vw;
     border-color: #ddd;
@@ -22,6 +20,7 @@
     border-width: 1px;
     border-radius: 8px;
     background-color: #fcfcfc;
+    overflow-y: visible;
 }
 
 .graph-container{
@@ -48,11 +47,13 @@ hr{
 
 .start{
     margin-top: 0.7vh;
-    height: 3vh;
+    height: 3.5vh;
     font-size: 2vh;
     padding-top: 0vh;
     padding-left: 1vh;
     padding-right: 1vh;
+    margin-left: 10px;
+    margin-top: 1vh;
 }
 
 .nodo{
@@ -83,7 +84,19 @@ hr{
     left: 0px;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.5);
     padding: 10px;
     overflow: scroll;
+}
+
+select{
+    margin-top: 0.7vh;
+    font-size: 2vh;
+    height: 2.5vh;
+    padding-top: 0vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    padding-top: 0.5vh;
+    margin-left: 10px;
+    width: 0vw;
 }
