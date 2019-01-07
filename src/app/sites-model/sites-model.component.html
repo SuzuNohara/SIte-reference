@@ -3,27 +3,27 @@
   <button class="d-inline btn btn-dark btn-sm float-right start" (click)="restart()">Reiniciar</button>
   <button class="d-inline btn btn-dark btn-sm float-right start" (click)="starCheck()">Consultar</button>
 
-  <select class="form-control d-inline float-right" placeholder="Tipos" multiple [size]="gruSize" [ngStyle]="{ 'width': (2*gruSize - 1) + 'vw'}" (focus)="adjustSize('gru')" (focusout)="deAdjustSize('gru')">
+  <select class="form-control d-inline float-right" [(ngModel)]="groupModel" (ngModelChange)="searchUpdate()" multiple [size]="gruSize" [ngStyle]="{ 'width': (2*gruSize - 1) + 'vw'}" (focus)="adjustSize('gru')" (focusout)="deAdjustSize('gru')">
     <option [value]="gru" *ngFor="let gru of grupos">{{ gru }}</option>
   </select>
   <button class="btn btn-outline-dark d-inline start float-right" (focus)="adjustSize('gru')" (click)="adjustSize('gru')" (focusout)="deAdjustSize('gru')">Grupos</button>
 
-  <select class="form-control d-inline float-right" placeholder="Regiones" multiple [size]="regSize" [ngStyle]="{ 'width': (2*regSize - 1) + 'vw'}" (focus)="adjustSize('reg')" (focusout)="deAdjustSize('reg')">
+  <select class="form-control d-inline float-right" [(ngModel)]="regionModel" (ngModelChange)="searchUpdate()" multiple [size]="regSize" [ngStyle]="{ 'width': (2*regSize - 1) + 'vw'}" (focus)="adjustSize('reg')" (focusout)="deAdjustSize('reg')">
     <option [value]="reg" *ngFor="let reg of regiones">{{ reg }}</option>
   </select>
   <button class="btn btn-outline-dark d-inline start float-right" (focus)="adjustSize('reg')" (click)="adjustSize('reg')" (focusout)="deAdjustSize('reg')">Regiones</button>
 
-  <select class="form-control d-inline float-right" placeholder="Tipos" multiple [size]="tipSize" [ngStyle]="{ 'width': (2*tipSize - 1) + 'vw'}" (focus)="adjustSize('tip')" (focusout)="deAdjustSize('tip')">
+  <select class="form-control d-inline float-right" [(ngModel)]="tipoModel" (ngModelChange)="searchUpdate()" multiple [size]="tipSize" [ngStyle]="{ 'width': (2*tipSize - 1) + 'vw'}" (focus)="adjustSize('tip')" (focusout)="deAdjustSize('tip')">
     <option [value]="tip" *ngFor="let tip of tipos">{{ tip }}</option>
   </select>
   <button class="btn btn-outline-dark d-inline start float-right" (focus)="adjustSize('tip')" (click)="adjustSize('tip')" (focusout)="deAdjustSize('tip')">Tipos</button>
 
-  <select class="form-control d-inline float-right" placeholder="Tecnologia" multiple [size]="tecSize" [ngStyle]="{ 'width': (2*tecSize - 1) + 'vw'}" (focus)="adjustSize('tec')" (focusout)="deAdjustSize('tec')">
+  <select class="form-control d-inline float-right" [(ngModel)]="tecModel" (ngModelChange)="searchUpdate()" multiple [size]="tecSize" [ngStyle]="{ 'width': (2*tecSize - 1) + 'vw'}" (focus)="adjustSize('tec')" (focusout)="deAdjustSize('tec')">
     <option [value]="tec" *ngFor="let tec of tecnologias">{{ tec }}</option>
   </select>
   <button class="btn btn-outline-dark d-inline start float-right" (focus)="adjustSize('tec')" (click)="adjustSize('tec')" (focusout)="deAdjustSize('tec')">Tecnología</button>
 
-  <select class="form-control d-inline float-right" placeholder="Compañia" multiple [size]="compSize" [ngStyle]="{ 'width': (2*compSize - 1) + 'vw'}" (focus)="adjustSize('comp')" (focusout)="deAdjustSize('com')">
+  <select class="form-control d-inline float-right" [(ngModel)]="companiaModel" (ngModelChange)="searchUpdate()" (ngModelChange)="searchUpdate()" multiple [size]="compSize" [ngStyle]="{ 'width': (2*compSize - 1) + 'vw'}" (focus)="adjustSize('com')" (focusout)="deAdjustSize('com')">
     <option [value]="comp" *ngFor="let comp of companias">{{ comp }}</option>
   </select>
   <button class="btn btn-outline-dark d-inline start float-right" (focus)="adjustSize('com')" (click)="adjustSize('com')" (focusout)="deAdjustSize('com')">Compañias</button>
@@ -47,7 +47,7 @@
       <div class="console">
         <div class="bars" *ngFor="let bar of bars">
           <div class="barContainer" *ngIf="bar.show">
-            {{ bar.title }}
+            <p [innerHtml]="bar.title"></p>
             <div class="progress">
               <div [ngClass]="bar.class + ' progress-bar'" role="progressbar" [ngStyle]="{ 'width': bar.carga + '%', 'background-color': bar.color + '' }" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
             </div>

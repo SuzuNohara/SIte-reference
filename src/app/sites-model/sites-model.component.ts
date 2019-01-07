@@ -44,6 +44,7 @@ export class SitesModelComponent implements OnInit {
   regiones: string[];
   grupos: string[];
   entornoBar: bar;
+  searchBar: bar;
   private nuevos: number[];
   private operando: number[];
   private nooperando: number[];
@@ -56,6 +57,12 @@ export class SitesModelComponent implements OnInit {
   tipSize: number;
   gruSize: number;
   regSize: number;
+
+  groupModel: string;
+  regionModel: string;
+  tipoModel: string;
+  tecModel: string;
+  companiaModel: string;
 
   constructor(private http: Http) {
     this.restart();
@@ -78,7 +85,8 @@ export class SitesModelComponent implements OnInit {
   }
 
   starCheck(){
-    this.sitiosOperando();
+    //this.sitiosOperando();
+    this.consultaGeneral();
   }
 
   restart(){
@@ -136,7 +144,23 @@ export class SitesModelComponent implements OnInit {
         pointHoverBorderColor: 'rgba(148,159,17,0.8)'
       }
     ];
+    this.groupModel = '';
+    this.regionModel = '';
+    this.tipoModel = '';
+    this.tecModel = '';
+    this.companiaModel = '';
     this.bars = [];
+    this.searchBar = new bar();
+    this.bars.push(this.searchBar);
+    this.searchBar.title = '<h3>Busqueda</h3><br>'+
+    'Compañias: ' + this.companiaModel + '<br>' +
+    'Tecnologías: ' + this.tecModel + '<br>' +
+    'Tipos: ' + this.tipoModel + '<br>' +
+    'Regiones: ' + this.regionModel + '<br>' +
+    'Grupos: ' + this.groupModel;
+    this.searchBar.carga = 0;
+    this.searchBar.color = '';
+    this.searchBar.show = true;
   }
 
   show(){
@@ -560,7 +584,7 @@ export class SitesModelComponent implements OnInit {
       nodo.value = '-';
       nodo.visitado = false;
       this.nodos.push(nodo);
-      console.log(nodo.left + '*' + nodo.top);
+      //console.log(nodo.left + '*' + nodo.top);
     }
   }
 
@@ -574,7 +598,7 @@ export class SitesModelComponent implements OnInit {
 
   cargarEntorno(){
     this.entornoBar.title = "Entorno";
-    this.entornoBar.show = true;
+    this.entornoBar.show = false;
     this.entornoBar.class = 'bg-dark';
     this.entornoBar.carga = 0;
     this.cargaCompanias();
@@ -841,7 +865,6 @@ export class SitesModelComponent implements OnInit {
     }
     url += '&cCondiciones=' + condiciones;
     select.url = url;
-    console.log(url);
     this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
       select.rawResult = result;
       select.rawToResult();
@@ -907,5 +930,134 @@ export class SitesModelComponent implements OnInit {
         this.regSize = 1;
       break;
     }
+  }
+
+  searchUpdate(){
+    this.searchBar.title = '<h3>Busqueda</h3><br>'+
+    'Compañias: ' + this.companiaModel + '<br>' +
+    'Tecnologías: ' + this.tecModel + '<br>' +
+    'Tipos: ' + this.tipoModel + '<br>' +
+    'Regiones: ' + this.regionModel + '<br>' +
+    'Grupos: ' + this.groupModel;
+  }
+
+  consultaGeneral(){
+    let url: string = environment.URL_SELECT;
+    let select: rmdSelect;
+    select = new rmdSelect();
+    // Sitios operando
+    let con: condicion = new condicion();
+    con.campo = '7';
+    con.realcion = '=';
+    con.valor = '4';
+    select.condiciones.push(con);
+    // Seleccion de compañias
+    con = new condicion();
+    con.campo = '1000000001';
+    con.realcion = '=';
+    if(this.companiaModel.length > 0){
+      con.valor = '(' + this.companiaModel + ')';
+    }else{
+      con.valor = '%25';
+    }
+    select.condiciones.push(con);
+    // Seleccion de regiones
+    con = new condicion();
+    con.campo = '536870914';
+    con.realcion = '=';
+    if(this.regionModel.length > 0){
+      con.valor = '(' + this.regionModel + ')';
+    }else{
+      con.valor = '%25';
+    }
+    select.condiciones.push(con);
+    // Seleccion de tecnologias
+    con = new condicion();
+    con.campo = '730000001';
+    con.realcion = '=';
+    if(this.tecModel.length > 0){
+      con.valor = '(' + this.tecModel + ')';
+    }else{
+      con.valor = '%25';
+    }
+    select.condiciones.push(con);
+    // Seleccion de tipos de sitios
+    con = new condicion();
+    con.campo = '536870974';
+    con.realcion = '=';
+    if(this.tipoModel.length > 0){
+      con.valor = '(' + this.tipoModel + ')';
+    }else{
+      con.valor = '%25';
+    }
+    select.condiciones.push(con);
+    // Seleccion de grupos de soporte
+    con = new condicion();
+    con.campo = '536871003';
+    con.realcion = '=';
+    if(this.groupModel.length > 0){
+      con.valor = '(' + this.groupModel + ')';
+    }else{
+      con.valor = '%25';
+    }
+    select.condiciones.push(con);
+
+    select.formulario = environment.FORM_GRUPOS_SOPORTE;
+    select.usuario = environment.SISTEMA;
+    let condiciones: string = "";
+    url += 'cSistema=' + environment.SISTEMA;
+    url += '&cForma=' + environment.FORM_SITE;
+    url += '&cColumnas=1 536870925 1000000001 536870989 7 536870914 ' + environment.COORDS_FIELDS.join(' ');
+    for(let i = 0; i < select.condiciones.length; i++){
+      condiciones += '\'' + select.condiciones[i].campo + '\'' + select.condiciones[i].realcion + '\'' + select.condiciones[i].valor + '\' ';
+    }
+    url += '&cCondiciones=' + condiciones;
+    select.url = url;
+    console.log(url);
+    this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
+      select.rawResult = result;
+      select.rawToResult();
+      if(select.error){
+        this.searchBar.carga = 100;
+        this.searchBar.class = 'bg-danger';
+        this.searchBar.title = 'No hay sitios para mostrar';
+      }else{
+        this.searchBar.carga = 100;
+        this.searchBar.class = 'bg-success';
+        for(let sitio of select.result){
+          let coordenadas: boolean = true;
+          let direccion: boolean = true;
+          let ip: boolean = true;
+          for(let field of sitio.entrada){
+            if(environment.COORDS_FIELDS.indexOf(field.id)){
+              coordenadas = coordenadas && field.valor != null && field.valor != "";
+            }else if(environment.ADRESS_FIELDS.indexOf(field.id)){
+              direccion = direccion && field.valor != null && field.valor != "";
+            }else if(environment.IP_FIELD == field.id){
+              ip = ip && field.valor != null && field.valor != "";
+            }
+          }
+          if(coordenadas){
+            this.operando[3]++;
+            this.operandoData.push(sitio);
+          }else if(direccion){
+            this.operando[2]++;
+          }else if(ip){
+            this.operando[1]++;
+          }else{
+            this.operando[0]++;
+          }
+        }
+        this.lineChartData[0].data = this.nuevos;
+        this.lineChartData = [
+          {data: this.operando, label: 'Operando'}
+        ];
+      }
+      this.modelData();
+    }, error => {
+      this.searchBar.carga = 100;
+      this.searchBar.class = 'bg-danger';
+      this.searchBar.title = 'No hay sitios para mostrar';
+    });
   }
 }
