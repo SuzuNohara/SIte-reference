@@ -44,6 +44,11 @@ export class AppComponent{
             this.router.navigate(['/tecnologia']);
           }
         break;
+        case 'm':
+          if(this.sessionRoot){
+            this.router.navigate(['/model']);
+          }
+        break;
       }
     }
   }
