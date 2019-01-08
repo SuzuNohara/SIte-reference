@@ -22,6 +22,7 @@
     <div *ngIf="activeSession" class="option-item" [routerLink]="['/nombre']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Nombre</div></div>
     <div *ngIf="activeSession" class="option-item" [routerLink]="['/prioridad']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Prioridad</div></div>
     <div *ngIf="activeSession && sessionRoot" class="option-item" [routerLink]="['/tecnologia']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Tecnologia</div></div>
+    <div *ngIf="activeSession && sessionRoot" class="option-item" [routerLink]="['/model']" [routerLinkActive]="['option-item-active']"><div class="cont-inline">Model</div></div>
 </div>
 <div class="datos-content">
     <router-outlet></router-outlet>

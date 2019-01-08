@@ -4,13 +4,10 @@
 
 export const environment = {
   production: false,
-  URL_INSERTD: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDInsert?',
-  URL_UPDATED: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDUpdate?',
-  URL_SELECTD: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDSelect?',
-  URL_INSERT: 'http://remedycontrolq.oymcloud.americamovil.com:8080/Remedy/servicios/RMDInsert?',
-  URL_UPDATE: 'http://remedycontrolq.oymcloud.americamovil.com:8080/Remedy/servicios/RMDUpdate?',
-  URL_SELECT: 'http://remedycontrolq.oymcloud.americamovil.com:8080/Remedy/servicios/RMDSelect?',
-  AUTO_REFERENCE: 'http://remedycontrolq.oymcloud.americamovil.com:8080/SitiosV3',
+  URL_INSERT: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDInsert?',
+  URL_UPDATE: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDUpdate?',
+  URL_SELECT: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDSelect?',
+  AUTO_REFERENCE: 'http://rc01d.oymcloud.americamovil.com:8080/SitiosV3',
   MAIL_SERVICE: 'http://10.119.155.72:8080/blankServices/mail.jsp',
 
   SISTEMA: 'SITIOS',
@@ -23,6 +20,8 @@ export const environment = {
   FORM_COMPANIAS: 'COM:Company',
   FORM_TECNOLOGIAS: 'AMX:Tecnologia_Site-EP',
   FORM_TIPO_SITIO: 'AMX:TipoSitio_Site-EP',
+  FORM_REGIONES: 'CTM:Region',
+  FORM_GRUPOS_SOPORTE: 'CTM:Support Group',
 
   COL_AMX: ['536870918', '536870920', '536870921', '536870922', '536870914'],
   SGS_COLS_SEARCH: ['7', '8', '536870914', '536870925', '536870974', '730000001', '1000000001'],
@@ -49,8 +48,15 @@ export const environment = {
   NOMBRE_ENCABEZADOS: 'NUM,NEMONICO,COMPANIA,NOMBRE_ACTUAL,NOMBRE_NUEVO',
   TEC_ENCABEZADOS: 'NUM,NEMONICO,COMPANIA,TECNOLOGIA_CI,TIPO_CI',
 
-  SATE_CHANGE_ALLOWED: ['0-4','0-7','1-7','2-7','3-7','4-5','5-4','5-6','6-7'],
-  STAT_NAMES: ['SITIO_NUEVO','X','X','X','OPERANDO','NO OPERANDO','DESINSTALADO','CANCELADO']
+  SATE_CHANGE_ALLOWED: ['0-4','0-7','4-5','5-4','5-6','6-7'],
+  STAT_NAMES: ['SITIO_NUEVO','X','X','X','OPERANDO','NO OPERANDO','DESINSTALADO','CANCELADO'],
+
+  COORDS_FIELDS: ['536870994','536870993'],
+  IP_FIELD: '536871141',
+  ADRESS_FIELDS: ['536870912','536871002','536870979','536870981','536871000'],
+
+  COUNTRY_DEFAULT: 'TELCEL',
+  COLORS_LIST: ['14,159,177','148,15,177','77,83,96','148,159,177','148,159,17','159,17,22','159,148,15']
 };
 
 /*

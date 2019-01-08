@@ -27,6 +27,9 @@ import { SiteStatusComponent } from './site-status/site-status.component';
 import { GrupoSoporteComponent } from './grupo-soporte/grupo-soporte.component';
 import { NombreSitioComponent } from './nombre-sitio/nombre-sitio.component';
 import { TecnologiaSitioComponent } from './tecnologia-sitio/tecnologia-sitio.component';
+import { SitesModelComponent } from './sites-model/sites-model.component';
+
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,8 @@ import { TecnologiaSitioComponent } from './tecnologia-sitio/tecnologia-sitio.co
     SiteStatusComponent,
     GrupoSoporteComponent,
     NombreSitioComponent,
-    TecnologiaSitioComponent
+    TecnologiaSitioComponent,
+    SitesModelComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +60,8 @@ import { TecnologiaSitioComponent } from './tecnologia-sitio/tecnologia-sitio.co
     routing,
     FormsModule,
     HttpModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ChartsModule
   ],
   providers: [
     CookieService

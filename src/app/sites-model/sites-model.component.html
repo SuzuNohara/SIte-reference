@@ -1,0 +1,98 @@
+<div class="container-fluid controles">
+  <h4 class="d-inline">Controles</h4>
+  <button class="d-inline btn btn-dark btn-sm float-right start" (click)="restart()">Reiniciar</button>
+  <button class="d-inline btn btn-dark btn-sm float-right start" (click)="starCheck()">Consultar</button>
+
+  <select class="form-control d-inline float-right" [(ngModel)]="groupModel" (ngModelChange)="searchUpdate()" multiple [size]="gruSize" [ngStyle]="{ 'width': (2*gruSize - 1) + 'vw'}" (focus)="adjustSize('gru')" (focusout)="deAdjustSize('gru')">
+    <option [value]="gru" *ngFor="let gru of grupos">{{ gru }}</option>
+  </select>
+  <button class="btn btn-outline-dark d-inline start float-right" (focus)="adjustSize('gru')" (click)="adjustSize('gru')" (focusout)="deAdjustSize('gru')">Grupos</button>
+
+  <select class="form-control d-inline float-right" [(ngModel)]="regionModel" (ngModelChange)="searchUpdate()" multiple [size]="regSize" [ngStyle]="{ 'width': (2*regSize - 1) + 'vw'}" (focus)="adjustSize('reg')" (focusout)="deAdjustSize('reg')">
+    <option [value]="reg" *ngFor="let reg of regiones">{{ reg }}</option>
+  </select>
+  <button class="btn btn-outline-dark d-inline start float-right" (focus)="adjustSize('reg')" (click)="adjustSize('reg')" (focusout)="deAdjustSize('reg')">Regiones</button>
+
+  <select class="form-control d-inline float-right" [(ngModel)]="tipoModel" (ngModelChange)="searchUpdate()" multiple [size]="tipSize" [ngStyle]="{ 'width': (2*tipSize - 1) + 'vw'}" (focus)="adjustSize('tip')" (focusout)="deAdjustSize('tip')">
+    <option [value]="tip" *ngFor="let tip of tipos">{{ tip }}</option>
+  </select>
+  <button class="btn btn-outline-dark d-inline start float-right" (focus)="adjustSize('tip')" (click)="adjustSize('tip')" (focusout)="deAdjustSize('tip')">Tipos</button>
+
+  <select class="form-control d-inline float-right" [(ngModel)]="tecModel" (ngModelChange)="searchUpdate()" multiple [size]="tecSize" [ngStyle]="{ 'width': (2*tecSize - 1) + 'vw'}" (focus)="adjustSize('tec')" (focusout)="deAdjustSize('tec')">
+    <option [value]="tec" *ngFor="let tec of tecnologias">{{ tec }}</option>
+  </select>
+  <button class="btn btn-outline-dark d-inline start float-right" (focus)="adjustSize('tec')" (click)="adjustSize('tec')" (focusout)="deAdjustSize('tec')">Tecnología</button>
+
+  <select class="form-control d-inline float-right" [(ngModel)]="companiaModel" (ngModelChange)="searchUpdate()" (ngModelChange)="searchUpdate()" multiple [size]="compSize" [ngStyle]="{ 'width': (2*compSize - 1) + 'vw'}" (focus)="adjustSize('com')" (focusout)="deAdjustSize('com')">
+    <option [value]="comp" *ngFor="let comp of companias">{{ comp }}</option>
+  </select>
+  <button class="btn btn-outline-dark d-inline start float-right" (focus)="adjustSize('com')" (click)="adjustSize('com')" (focusout)="deAdjustSize('com')">Compañias</button>
+</div>
+
+<div class="container-fluid lienzo">
+  <div class="row">
+    <div class="col">
+      <canvas baseChart width="400" height="400"
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [colors]="lineChartColors"
+        [legend]="lineChartLegend"
+        [chartType]="lineChartType"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
+    </div>
+    <div class="col">
+      OPERACIONES:
+      <div class="console">
+        <div class="bars" *ngFor="let bar of bars">
+          <div class="barContainer" *ngIf="bar.show">
+            <p [innerHtml]="bar.title"></p>
+            <div class="progress">
+              <div [ngClass]="bar.class + ' progress-bar'" role="progressbar" [ngStyle]="{ 'width': bar.carga + '%', 'background-color': bar.color + '' }" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </div>
+      <button class="d-inline btn btn-dark btn-sm float-right start" (click)="show()">Ver diagrama</button>
+    </div>
+  </div>
+  <div class="diagrama" *ngIf="showDiagram">
+    <button class="d-inline btn btn-secondary float-right" style="margin-left: 15px;" (click)="closeDiagram()"><fa-icon [icon]="faTimesCircle"></fa-icon></button>
+    <button class="d-inline btn btn-secondary float-right" style="margin-left: 15px;"><fa-icon [icon]="faQuestionCircle"></fa-icon></button>
+    <button class="d-inline btn btn-secondary float-right" style="margin-left: 15px;"><fa-icon [icon]="faCogs"></fa-icon></button>
+
+    <div class="nodo" *ngFor="let nodo of nodos; index as i" [ngStyle]="{
+      'width': nodo.size + 'vw',
+      'height': nodo.size + 'vw',
+      'top': nodo.top + 'px',
+      'left': nodo.left + 'px',
+      'border-radius': nodo.radius + 'vw',
+      'border-width': nodo.border + 'vw',
+      'background-color': nodo.bgcolor,
+      'font-size': nodo.font + 'vw',
+      'padding': nodo.padding + 'vw',
+      'opacity': nodo.opacidad
+      }">
+      {{ nodo.value }}
+    </div>
+    
+    <div class="arista" *ngFor="let arista of aristas; index as i" [ngStyle]="{
+      'width': arista.width + 'vw',
+      'height': arista.height + 'vw',
+      'transform': 'rotate(' + arista.angle + 'deg)',
+      'top': arista.top + 'vw',
+      'left': arista.left + 'vw',
+      'border-width': arista.border + 'vw',
+      'background-color': arista.bgcolor,
+      'font-size': arista.font + 'vw',
+      'transform-origin': '0 0',
+      'opacity': arista.opacidad
+      }">
+      {{ arista.value }}
+    </div>
+  </div>
+</div>
+<app-alerta></app-alerta>
+<app-informacion></app-informacion>

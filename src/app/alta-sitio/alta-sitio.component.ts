@@ -122,7 +122,7 @@ export class AltaSitioComponent implements OnInit {
           this.insertG.url = url;
           this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
             if(result.indexOf('<NUEVO>') >= 0){
-              this.status = "Sitio insertado " + this.site.nemonico + " - " + this.site.nemonico + " - " + result.substring(result.indexOf('<NUEVO>') + '<NUEVO>'.length,result.indexOf('</NUEVO>'));
+              this.status = "Sitio insertado " + this.site.nemonico;
               this.showClass = 'progress-bar bg-success progress-bar-striped alta-progress';
               this.finishMethod( true, "Sitio creado correctamente " + result.substring(result.indexOf('<NUEVO>') + '<NUEVO>'.length,result.indexOf('</NUEVO>')));
             }else if(result.indexOf('<ERROR>') >= 0){

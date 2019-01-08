@@ -1,0 +1,102 @@
+.lienzo{
+    width: 90vw;
+    margin-left: 5vw;
+    border-color: #ddd;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.controles{
+    width: 90vw;
+    height: 6vh;
+    margin-bottom: 1vh;
+    margin-left: 5vw;
+    border-color: #ddd;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+    overflow-y: visible;
+}
+
+.graph-container{
+    width: 50%;
+}
+
+.console{
+    width: 100%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #ddd;
+    border-radius: 6px;
+    padding: 10px;
+    overflow: scroll;
+    max-height: 60vh;
+    margin-bottom: 10px;
+    overflow-y: scroll;
+}
+
+hr{
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.start{
+    margin-top: 0.7vh;
+    height: 3.5vh;
+    font-size: 2vh;
+    padding-top: 0vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    margin-left: 10px;
+    margin-top: 1vh;
+}
+
+.nodo{
+    position: absolute;
+    border-style: solid;
+    border-color: #fff;
+    z-index: 7;
+    vertical-align: middle;
+    text-align: center;
+    color: #fff;
+}
+
+.arista{
+    position: absolute;
+    border-style: solid;
+    border-color: #fff;
+    z-index: 6;
+    vertical-align: middle;
+    text-align: center;
+    color: #fff;
+    border-radius: 0.5vw;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+}
+
+.diagrama{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    padding: 10px;
+    overflow: scroll;
+}
+
+select{
+    margin-top: 0.7vh;
+    font-size: 2vh;
+    height: 2.5vh;
+    padding-top: 0vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    padding-top: 0.5vh;
+    margin-left: 10px;
+    width: 0vw;
+}
