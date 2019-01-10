@@ -1,8 +1,8 @@
 <div class="container maincontent">
   <h2 class="display-3">Relaciones CMDB &nbsp;
     <small class="text-muted">
-      <button class="btn btn-sm btn-outline-dark" (click)="showInfo()"><fa-icon [icon]="faQuestionCircle"></fa-icon></button>
-      <a [href]="docReference" download="ALTA_SITIOS.csv" class="btn btn-sm btn-outline-dark" (click)="downloadFile()"><fa-icon [icon]="faFile"></fa-icon></a>
+      <!--<button class="btn btn-sm btn-outline-dark" (click)="showInfo()"><fa-icon [icon]="faQuestionCircle"></fa-icon></button>
+      <a [href]="docReference" download="ALTA_SITIOS.csv" class="btn btn-sm btn-outline-dark" (click)="downloadFile()"><fa-icon [icon]="faFile"></fa-icon></a>-->
     </small>
   </h2>
   <hr>
@@ -24,9 +24,10 @@
       <div class="col">
         OPERACIONES:
         <div class="console">
+           <app-cmdb *ngFor="let ci of cmdb" (init)="inited($event)" (validate)="validated($event)" (finish)="finiched($event)" (report)="report($event)" [ciInput]="ci"></app-cmdb>
           <!--<app-alta-sitio *ngFor="let site of sitios; let index" (init)="siteInit($event)" (validate)="siteValidate($event)" (finish)="siteFinish($event)" (report)="siteReport($event)" [site]="site"></app-alta-sitio>-->
         </div>
-        <button *ngIf="reportVisible" class="btn btn-sm btn-outline-dark" (click)="showReport()">Reporte</button>
+        <button class="btn btn-sm btn-outline-dark" (click)="showReport()">Reporte</button>
       </div>
     </div>
   </div>
