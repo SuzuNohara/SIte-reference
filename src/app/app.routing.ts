@@ -11,9 +11,11 @@ import { TecnologiaComponent } from './tecnologia/tecnologia.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { LoginComponent } from './login/login.component';
 import { SitesModelComponent } from './sites-model/sites-model.component';
+import { RelacionesCMDBComponent } from './relaciones-cmdb/relaciones-cmdb.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/inicio', pathMatch: 'full' },
+    { path: 'relacionesCMDB', component: RelacionesCMDBComponent },
     { path: 'model', component: SitesModelComponent },
     { path: 'alta', component: AltaComponent },
     { path: 'conectado', component: ConexionesComponent },

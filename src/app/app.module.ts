@@ -30,6 +30,8 @@ import { TecnologiaSitioComponent } from './tecnologia-sitio/tecnologia-sitio.co
 import { SitesModelComponent } from './sites-model/sites-model.component';
 
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { RelacionesCMDBComponent } from './relaciones-cmdb/relaciones-cmdb.component';
+import { CMDBComponent } from './cmdb/cmdb.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     GrupoSoporteComponent,
     NombreSitioComponent,
     TecnologiaSitioComponent,
-    SitesModelComponent
+    SitesModelComponent,
+    RelacionesCMDBComponent,
+    CMDBComponent
   ],
   imports: [
     BrowserModule,

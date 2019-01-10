@@ -49,6 +49,11 @@ export class AppComponent{
             this.router.navigate(['/model']);
           }
         break;
+        case 'r':
+          if(this.sessionRoot){
+            this.router.navigate(['/relacionesCMDB']);
+          }
+        break;
       }
     }
   }
