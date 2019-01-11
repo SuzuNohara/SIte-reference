@@ -24,7 +24,10 @@
       <div class="col">
         OPERACIONES:
         <div class="console">
-           <app-cmdb *ngFor="let ci of cmdb" (init)="inited($event)" (validate)="validated($event)" (finish)="finiched($event)" (report)="report($event)" [ciInput]="ci"></app-cmdb>
+          <div class="progress">
+            <div class="progress-bar bg-dark" role="progressbar" [ngStyle]="{ 'width': carga + '%' }" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <app-cmdb *ngFor="let ci of cmdb" (init)="inited($event)" (validate)="validated($event)" (finish)="finished($event)" (report)="report($event)" [ciInput]="ci"></app-cmdb>
           <!--<app-alta-sitio *ngFor="let site of sitios; let index" (init)="siteInit($event)" (validate)="siteValidate($event)" (finish)="siteFinish($event)" (report)="siteReport($event)" [site]="site"></app-alta-sitio>-->
         </div>
         <button class="btn btn-sm btn-outline-dark" (click)="showReport()">Reporte</button>

@@ -1,13 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Http } from '@angular/http';
-import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { InformacionComponent } from '../informacion/informacion.component';
 import { AlertaComponent } from '../alerta/alerta.component';
 import { faFile } from '@fortawesome/free-solid-svg-icons';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
-import { CMDBComponent } from '../cmdb/cmdb.component';
 import { CICMDB } from '../../implements/cmdb';
+import { endStatus } from '../../implements/endStatus';
 
 @Component({
   selector: 'app-relaciones-cmdb',
@@ -40,11 +38,23 @@ export class RelacionesCMDBComponent implements OnInit {
   cmdbPool: CICMDB[];
   cmdb: CICMDB[];
 
+  // Operacion actual
+  current: number;
+  total: number;
+  processed: number;
+  carga: number;
+
   constructor() {
     this.fileClass = 'form-control file-input';
     this.showButton = false;
     this.reporte = '';
     this.cmdb = [];
+    this.cmdbPool = [];
+    this.reporte = '';
+    this.current = 0;
+    this.carga = 0;
+    this.processed = 0;
+    this.total = 0;
   }
 
   ngOnInit() {
@@ -52,8 +62,10 @@ export class RelacionesCMDBComponent implements OnInit {
 
   cargarRelaciones(){
     if(this.archivo.length > 0){
+      console.log(this.archivo);
       let lines: string[];
-      lines = this.archivo.split('/n');
+      lines = this.archivo.split('\n');
+      this.total = lines.length;
       for(let line of lines){
         let fields: string[];
         fields = line.split(',');
@@ -76,8 +88,15 @@ export class RelacionesCMDBComponent implements OnInit {
   }
 
   cargaComponentes(){
-    for(let ci of this.cmdbPool){
-      this.cmdb.push(ci);
+    this.cmdb = [];
+    if(this.cmdbPool.length > 0){
+      for(let i = 0; i < this.cmdbPool.length && i < 15; i++){
+        this.cmdb.push(this.cmdbPool.pop());
+        this.current ++;
+      }
+    }else{
+      this.alert.setInfo('Terminado','Ya no hay mas CI que procesar','OK');
+      this.alert.show();
     }
   }
 
@@ -90,8 +109,15 @@ export class RelacionesCMDBComponent implements OnInit {
     console.log(e);
   }
   
-  finiched(e){
-    console.log(e);
+  finished(e){
+    let end: endStatus = e;
+    this.reporte += end.texto + '<br>';
+    this.current--;
+    this.processed++;
+    this.carga = 100 * (this.processed / this.total);
+    if(this.current == 0){
+      this.cargaComponentes();
+    }
   }
   
   report(e){

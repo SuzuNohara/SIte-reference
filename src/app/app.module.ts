@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FileUploadModule } from 'ng2-file-upload';
 import { FormsModule } from '@angular/forms';
-import { routing, appRoutingProviders } from './app.routing';
+import { routing } from './app.routing';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AltaComponent } from './alta/alta.component';
@@ -65,7 +66,8 @@ import { CMDBComponent } from './cmdb/cmdb.component';
     FormsModule,
     HttpModule,
     FontAwesomeModule,
-    ChartsModule
+    ChartsModule,
+    HttpClientModule
   ],
   providers: [
     CookieService
