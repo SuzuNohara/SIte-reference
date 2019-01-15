@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../environments/environment';
 import { Router } from "@angular/router"
 import { HostListener } from '@angular/core';
+import { LoggerService } from '../services/logger/logger.service';
 
 @Component({
   selector: 'app-root',
@@ -53,7 +54,8 @@ export class AppComponent{
     }
   }
 
-  constructor(private cookies: CookieService, private router: Router){
+  constructor(private cookies: CookieService, private router: Router, private log: LoggerService){
+    this.log.info('Iniciando instancia del sistema...');
     this.sessionRoot = false;
     this.logoRef = environment.AUTO_REFERENCE + "/img/sitios.png";
     this.router.navigate(['/']);
@@ -61,7 +63,11 @@ export class AppComponent{
     this.activeSession = false;
     this.sessionName = cookies.get(environment.SESSION_COOKIE);
     if(this.sessionName.length > 0){
+      this.log.info('Sesion detectada: ' + this.sessionName);
       this.sessionRoot = this.sessionName == environment.USER_ROOT;
+      if(this.sessionRoot){
+        this.log.info('Sesion de administrador generada');
+      }
       this.activeSession = true;
       this.userLoged = this.sessionName;
       this.router.navigate(['/']);
@@ -79,5 +85,6 @@ export class AppComponent{
   cerrarSesion(){
     this.cookies.delete(environment.SESSION_COOKIE);
     window.location.href = './SitiosV3';
+    this.log.info('Terminando sesion: ' + this.sessionName);
   }
 }
