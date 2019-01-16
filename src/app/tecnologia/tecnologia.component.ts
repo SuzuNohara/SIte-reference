@@ -265,7 +265,7 @@ export class TecnologiaComponent implements OnInit {
     end.texto = event.texto;
     this.endReport.push(end);
     if(this.sitios.length <= this.endReport.length){
-      this.alert.setInfo("Operación finalizada", "El registro de sitios terminó, lea el reporte generado al final del log para ver los resultados de su ejecucion", "OK");
+      this.alert.setInfo("Reporte", "El registro de sitios terminó, lea el reporte generado al final del log para ver los resultados de su ejecucion", "OK");
       this.reportVisible = true;
       this.alert.show();
     }
@@ -284,7 +284,7 @@ export class TecnologiaComponent implements OnInit {
         informacion += '<div class="alert alert-danger alerta" role="alert">' + end.texto + '</div>';
       }
     }
-    this.info.setInfo("Operación terminada", informacion, "OK");
+    this.info.setInfo("Reporte", informacion, "OK");
     this.info.show();
   }
 

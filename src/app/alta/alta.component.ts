@@ -290,7 +290,7 @@ export class AltaComponent implements OnInit {
         informacion += '<div class="alert alert-danger alerta" role="alert">' + end.texto + '</div>';
       }
     }
-    this.info.setInfo("Operación terminada", informacion, "OK");
+    this.info.setInfo("Reporte", informacion, "OK");
     this.info.show();
   }
 

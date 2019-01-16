@@ -250,7 +250,7 @@ export class ConexionesComponent implements OnInit {
         informacion += '<div class="alert alert-danger alerta" role="alert">' + end.texto + '</div>';
       }
     }
-    this.info.setInfo("Operación terminada", informacion, "OK");
+    this.info.setInfo("Reporte", informacion, "OK");
     this.info.show();
   }
 
@@ -260,7 +260,7 @@ export class ConexionesComponent implements OnInit {
     end.texto = event.texto;
     this.endReport.push(end);
     if(this.sitios.length <= this.endReport.length){
-      this.alert.setInfo("Operación finalizada", "El Cambio de conexiones entre sitios concluyó", "OK");
+      this.alert.setInfo("Reporte", "El Cambio de conexiones entre sitios concluyó", "OK");
       this.reportVisible = true;
       this.alert.show();
     }
