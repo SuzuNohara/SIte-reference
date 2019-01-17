@@ -265,4 +265,9 @@ export class ConexionesComponent implements OnInit {
       this.alert.show();
     }
   }
+
+  killProcess(){
+    this.sitios = [];
+    this.showReport();
+  }
 }

@@ -296,4 +296,9 @@ export class AltaComponent implements OnInit {
     this.info.show();
   }
 
+  killProcess(){
+    this.sitios = [];
+    this.showReport();
+  }
+  
 }

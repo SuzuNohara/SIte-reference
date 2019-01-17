@@ -60,6 +60,7 @@
           <app-alta-sitio *ngFor="let site of sitios; let index" (init)="siteInit($event)" (validate)="siteValidate($event)" (finish)="siteFinish($event)" (report)="siteReport($event)" [site]="site"></app-alta-sitio>
         </div>
         <button class="btn btn-sm btn-outline-dark" (click)="showReport()">Reporte <div *ngIf="!reportVisible"> actual</div></button>
+        <button class="btn btn-sm btn-outline-dark" *ngIf="!reportVisible" (click)="killProcess()">Detener ejecución</button>
       </div>
     </div>
   </div>
