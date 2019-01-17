@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChanges } from '@angular/core';
 import { AltaAnalizadorArchivoComponent } from '../alta-analizador-archivo/alta-analizador-archivo.component';
 import { environment } from '../../environments/environment';
 import { AltaServiceService } from '../../services/alta/alta-service.service';
@@ -22,6 +22,8 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./alta.component.css']
 })
 export class AltaComponent implements OnInit {
+
+  private lastChange: Date;
 
   faQuestionCircle = faQuestionCircle;
   faFile = faFile;
