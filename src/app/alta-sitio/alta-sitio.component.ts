@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
 import { sitio } from '../../implements/sitio';
 import { endStatus } from '../../implements/endStatus';
 import { rmdSelect } from '../../implements/rmdSelect';
@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
   templateUrl: './alta-sitio.component.html',
   styleUrls: ['./alta-sitio.component.css']
 })
-export class AltaSitioComponent implements OnInit {
+export class AltaSitioComponent implements OnInit, OnChanges {
 
   status: string;
   siteLocal: sitio;
@@ -38,6 +38,10 @@ export class AltaSitioComponent implements OnInit {
 
   ngOnInit() {
     this.processSite();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('Changes ' + changes.prop);
   }
 
   processSite(){
