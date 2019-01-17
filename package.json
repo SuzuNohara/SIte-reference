@@ -31,6 +31,7 @@
     "ng2-file-upload": "^1.3.0",
     "ngx-clipboard": "^11.1.9",
     "ngx-cookie-service": "^1.0.10",
+    "ngx-logger": "^3.3.9",
     "popper": "^1.0.1",
     "popper.js": "^1.14.6",
     "rxjs": "^6.0.0",

@@ -4,6 +4,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { FormsModule } from '@angular/forms';
 import { routing, appRoutingProviders } from './app.routing';
 import { HttpModule } from '@angular/http';
+import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 
 import { AppComponent } from './app.component';
 import { AltaComponent } from './alta/alta.component';
@@ -61,7 +62,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     FormsModule,
     HttpModule,
     FontAwesomeModule,
-    ChartsModule
+    ChartsModule,
+    LoggerModule.forRoot({serverLoggingUrl: '/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR})
   ],
   providers: [
     CookieService

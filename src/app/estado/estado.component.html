@@ -59,7 +59,8 @@
           </div>
           <app-site-status *ngFor="let site of sitios; let index" (init)="siteInit($event)" (validate)="siteValidate($event)" (finish)="siteFinish($event)" (report)="siteReport($event)" [site]="site"></app-site-status>
         </div>
-        <button *ngIf="reportVisible" class="btn btn-sm btn-outline-dark" (click)="showReport()">Reporte</button>
+        <button class="btn btn-sm btn-outline-dark" (click)="showReport()">Reporte <div *ngIf="!reportVisible"> actual</div></button>
+        <button class="btn btn-sm btn-outline-dark" *ngIf="!reportVisible" (click)="killProcess()">Detener ejecución</button>
       </div>
     </div>
   </div>
