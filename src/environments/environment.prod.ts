@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
-  URL_INSERT: 'http://10.119.155.72:8080/Remedy/servicios/RMDInsert?',
-  URL_UPDATE: 'http://10.119.155.72:8080/Remedy/servicios/RMDUpdate?',
-  URL_SELECT: 'http://10.119.155.72:8080/Remedy/servicios/RMDSelect?',
-  AUTO_REFERENCE: 'http://10.119.155.72:8080/SitiosV3',
+  URL_INSERT: 'remedycontrol.oymcloud.americamovil.com:8080/Remedy/servicios/RMDInsert?',
+  URL_UPDATE: 'remedycontrol.oymcloud.americamovil.com:8080/Remedy/servicios/RMDUpdate?',
+  URL_SELECT: 'remedycontrol.oymcloud.americamovil.com:8080/Remedy/servicios/RMDSelect?',
+  AUTO_REFERENCE: 'remedycontrol.oymcloud.americamovil.com:8080/SitiosV3',
   MAIL_SERVICE: 'http://10.119.155.72:8080/blankServices/mail.jsp',
 
   SISTEMA: 'SITIOS',
