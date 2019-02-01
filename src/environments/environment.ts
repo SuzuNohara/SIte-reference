@@ -4,18 +4,11 @@
 
 export const environment = {
   production: false,
-  /*URL_INSERT: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDInsert?',
+  URL_INSERT: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDInsert?',
   URL_UPDATE: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDUpdate?',
   URL_SELECT: 'http://rc01d.oymcloud.americamovil.com:8080/Remedy/servicios/RMDSelect?',
   AUTO_REFERENCE: 'http://rc01d.oymcloud.americamovil.com:8080/SitiosV3',
-  MAIL_SERVICE: 'http://10.119.155.72:8080/blankServices/mail.jsp',*/
-  URL_INSERT: 'http://remedycontrolq.oymcloud.americamovil.com:8080/Remedy/servicios/RMDInsert?',
-  URL_UPDATE: 'http://remedycontrolq.oymcloud.americamovil.com:8080/Remedy/servicios/RMDUpdate?',
-  URL_SELECT: 'http://remedycontrolq.oymcloud.americamovil.com:8080/Remedy/servicios/RMDSelect?',
-  AUTO_REFERENCE: 'http://remedycontrolq.oymcloud.americamovil.com:8080/SitiosV3',
-  BLANK_SERVICES: 'localhost:8080/blankServices',
-  MAIL: '/mail.jsp',
-  INFO_CLIENT: '/info.jsp',
+  MAIL_SERVICE: 'http://10.119.155.72:8080/blankServices/mail.jsp',
 
   SISTEMA: 'SITIOS',
 
@@ -63,7 +56,9 @@ export const environment = {
   ADRESS_FIELDS: ['536870912','536871002','536870979','536870981','536871000'],
 
   COUNTRY_DEFAULT: 'TELCEL',
-  COLORS_LIST: ['14,159,177','148,15,177','77,83,96','148,159,177','148,159,17','159,17,22','159,148,15']
+  COLORS_LIST: ['14,159,177','148,15,177','77,83,96','148,159,177','148,159,17','159,17,22','159,148,15'],
+  
+  PAISES_NO_OPERABLES: ['CLARO COSTA RICA']
 };
 
 /*
