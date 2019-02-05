@@ -61,6 +61,11 @@ export class AltaSitioComponent implements OnInit, OnChanges {
     cond.realcion = "=";
     cond.valor = this.site.tipo;
     this.select.condiciones.push(cond);
+    cond = new condicion();
+    cond.campo = "1000000001";
+    cond.realcion = "=";
+    cond.valor = this.site.compania;
+    this.select.condiciones.push(cond);
     this.select.usuario = environment.SISTEMA;
     this.select.formulario = environment.FORM_AMX;
     let url: string = environment.URL_SELECT;
@@ -110,11 +115,11 @@ export class AltaSitioComponent implements OnInit, OnChanges {
           condiciones += '\'536870974\'=\'' + this.site.tipo + '\' ';
           condiciones += '\'536871003\'=\'' + this.site.grupoSoporte + '\' ';
           for(let con of this.retornoTec){
-            if(con.campo == '536870922'){
+            if(con.campo == '536870921'){
               condiciones += '\'536878271\'' + con.realcion + '\'' + con.valor + '\' ';
-            }else if(con.campo == '536870914'){
+            }else if(con.campo == '536870922'){
               condiciones += '\'536878272\'' + con.realcion + '\'' + con.valor + '\' ';
-            }else if(con.campo == '536870918'){
+            }else if(con.campo == '536870914'){
               condiciones += '\'536878317\'' + con.realcion + '\'' + con.valor + '\' ';
             }else if(con.campo == '536870921'){
               condiciones += '\'536878269\'' + con.realcion + '\'' + con.valor + '\' ';
