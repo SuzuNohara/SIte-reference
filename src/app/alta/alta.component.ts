@@ -253,6 +253,7 @@ export class AltaComponent implements OnInit {
         site.grupoSoporte = campos[8];
         site.sitioAlarma = campos[9];
         site.ip = campos[10];
+        site.crq = this.crqModel;
         this.sitios.push(site);
       }
     }

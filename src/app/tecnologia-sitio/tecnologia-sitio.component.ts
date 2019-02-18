@@ -8,6 +8,7 @@ import { condicion } from '../../implements/condicion';
 import { environment } from '../../environments/environment';
 import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-tecnologia-sitio',
@@ -30,7 +31,7 @@ export class TecnologiaSitioComponent implements OnInit {
   private insertG: rmdInsert;
   private select: rmdSelect;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private cookieService: CookieService) {
     this.status = "Inicializando";
     this.showClass = 'progress-bar bg-info progress-bar-striped progress-bar-animated alta-progress';
     this.retornoTec = [];
@@ -173,11 +174,12 @@ export class TecnologiaSitioComponent implements OnInit {
                     url += '&cID=' + idSite;
                   }
                 }
-                condiciones += '\'536878271\'=\'' + tec536878271;
-                condiciones += '\'536878272\'=\'' + tec536878272;
-                condiciones += '\'536878317\'=\'' + tec536878317;
-                condiciones += '\'536878269\'=\'' + tec536878269;
-                condiciones += '\'536878270\'=\'' + tec536878270;
+                condiciones += '\'536878271\'=\'' + tec536878271 + '\' ';
+                condiciones += '\'536878272\'=\'' + tec536878272 + '\' ';
+                condiciones += '\'536878317\'=\'' + tec536878317 + '\' ';
+                condiciones += '\'536878269\'=\'' + tec536878269 + '\' ';
+                condiciones += '\'536878270\'=\'' + tec536878270 + '\' ';
+                condiciones += '\'536870935\'=\'Cambio Tecnologia: ' + (new Date()) + ' - ' + this.site.crq + ' - ' + this.cookieService.get(environment.SESSION_COOKIE) + '\' ';
                 url += '&cColumnas=' + condiciones;
                 update.url = url;
                 this.status = "Actualizando";

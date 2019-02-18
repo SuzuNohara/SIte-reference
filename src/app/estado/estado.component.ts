@@ -235,6 +235,7 @@ export class EstadoComponent implements OnInit {
         site.nemonico = campos[1];
         site.compania = campos[2];
         site.status = Number(campos[3]);
+        site.crq = this.crqModel;
         this.sitios.push(site);
       }
     }

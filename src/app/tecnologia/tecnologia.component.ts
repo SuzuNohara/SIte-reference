@@ -245,6 +245,7 @@ export class TecnologiaComponent implements OnInit {
         site.compania = campos[2];
         site.tecnologia = campos[3];
         site.tipo = campos[4];
+        site.crq = this.crqModel;
         this.sitios.push(site);
       }
     }

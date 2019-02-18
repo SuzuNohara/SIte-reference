@@ -17,6 +17,7 @@ export class sitio{
     sitioAlarma: string;
     ip: string;
     status: number;
+    crq: string;
 
     private retornoTec: condicion[];
     private insertG: rmdInsert;
@@ -34,6 +35,7 @@ export class sitio{
         this.sitioAlarma = "";
         this.ip = "";
         this.status = 0;
+        this.crq = '';
     }
 
     async insert(): Promise<string>{

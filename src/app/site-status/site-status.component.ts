@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
 import { rmdUpdate } from '../../implements/rmdUpdate';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-site-status',
@@ -30,7 +31,7 @@ export class SiteStatusComponent implements OnInit {
   private insertG: rmdInsert;
   private select: rmdSelect;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private cookieService: CookieService) {
     this.status = "Inicializando";
     this.showClass = 'progress-bar bg-info progress-bar-striped progress-bar-animated alta-progress';
     this.retornoTec = [];
@@ -109,8 +110,9 @@ export class SiteStatusComponent implements OnInit {
           if(this.prevNextValidate( prev, this.site.status)){
             condiciones += '\'7\'=\'' + this.site.status + '\' ';
             if(this.site.status == 6){
-              condiciones += '\'536871183\'=\'-\'';
+              condiciones += '\'536871183\'=\'-\' ';
             }
+            condiciones += '\'536870935\'=\'Alta de sitio: ' + (new Date()) + ' - ' + this.site.crq + ' - ' + this.cookieService.get(environment.SESSION_COOKIE) + '\' ';
             url += '&cColumnas=' + condiciones;
             update.url = url;
             this.status = "Actualizando";

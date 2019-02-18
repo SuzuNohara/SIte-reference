@@ -8,6 +8,7 @@ import { condicion } from '../../implements/condicion';
 import { environment } from '../../environments/environment';
 import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-nombre-sitio',
@@ -30,7 +31,7 @@ export class NombreSitioComponent implements OnInit {
   private insertG: rmdInsert;
   private select: rmdSelect;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private cookieService: CookieService) {
     this.status = "Inicializando";
     this.showClass = 'progress-bar bg-info progress-bar-striped progress-bar-animated alta-progress';
     this.retornoTec = [];
@@ -104,7 +105,8 @@ export class NombreSitioComponent implements OnInit {
               url += '&cID=' + con.valor;
             }
           }
-          condiciones += '\'8\'=\'' + this.site.nombre + '\'';
+          condiciones += '\'8\'=\'' + this.site.nombre + '\' ';
+          condiciones += '\'536870935\'=\'Cambio de nombre: ' + (new Date()) + ' - ' + this.site.crq + ' - ' + this.cookieService.get(environment.SESSION_COOKIE) + '\' ';
           url += '&cColumnas=' + condiciones;
           update.url = url;
           this.status = "Actualizando";

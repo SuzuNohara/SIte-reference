@@ -244,6 +244,7 @@ export class GruposComponent implements OnInit {
         site.nemonico = campos[1];
         site.compania = campos[2];
         site.grupoSoporte = campos[3];
+        site.crq = this.crqModel;
         this.sitios.push(site);
       }
     }

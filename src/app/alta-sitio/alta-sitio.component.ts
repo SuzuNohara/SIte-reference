@@ -5,6 +5,7 @@ import { rmdSelect } from '../../implements/rmdSelect';
 import { rmdInsert } from '../../implements/rmdInsert';
 import { condicion } from '../../implements/condicion';
 import { environment } from '../../environments/environment';
+import { CookieService } from 'ngx-cookie-service';
 import { Http } from '@angular/http';
 import { map } from 'rxjs/operators';
 
@@ -29,7 +30,7 @@ export class AltaSitioComponent implements OnInit, OnChanges {
   private insertG: rmdInsert;
   private select: rmdSelect;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private cookieService: CookieService) {
     this.status = "Inicializando";
     this.showClass = 'progress-bar bg-info progress-bar-striped progress-bar-animated alta-progress';
     this.retornoTec = [];
@@ -114,6 +115,7 @@ export class AltaSitioComponent implements OnInit, OnChanges {
           condiciones += '\'730000001\'=\'' + this.site.tecnologia + '\' ';
           condiciones += '\'536870974\'=\'' + this.site.tipo + '\' ';
           condiciones += '\'536871003\'=\'' + this.site.grupoSoporte + '\' ';
+          condiciones += '\'536870935\'=\'Alta de sitio: ' + (new Date()) + ' - ' + this.site.crq + ' - ' + this.cookieService.get(environment.SESSION_COOKIE) + '\' ';
           for(let con of this.retornoTec){
             if(con.campo == '536870921'){
               condiciones += '\'536878271\'' + con.realcion + '\'' + con.valor + '\' ';

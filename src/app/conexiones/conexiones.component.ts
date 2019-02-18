@@ -236,6 +236,7 @@ export class ConexionesComponent implements OnInit {
         site.compania = campos[2];
         site.conectado = campos[3];
         site.ip = campos[4];
+        site.crq = this.crqModel;
         this.sitios.push(site);
       }
     }
