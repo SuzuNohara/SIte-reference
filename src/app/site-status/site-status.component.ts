@@ -43,6 +43,157 @@ export class SiteStatusComponent implements OnInit {
   }
 
   processSite(){
+    let tecnologia: string;
+    let tipo: string;
+    this.status = 'Consultando informacion';
+    this.select = new rmdSelect();
+    let cond: condicion;
+    for(let col of environment.COL_AMX){
+        this.select.columnas.push(col);
+    }
+    cond = new condicion();
+    cond.campo = "536870925";
+    cond.realcion = "=";
+    cond.valor = this.site.nemonico;
+    this.select.condiciones.push(cond);
+    cond = new condicion();
+    cond.campo = "1000000001";
+    cond.realcion = "=";
+    cond.valor = this.site.compania;
+    this.select.condiciones.push(cond);
+    this.select.usuario = environment.SISTEMA;
+    this.select.formulario = environment.FORM_SITE;
+    let url: string = environment.URL_SELECT;
+    let condiciones: string = "";
+    url += 'cSistema=' + environment.SISTEMA;
+    url += '&cForma=' + this.select.formulario;
+    url += '&cColumnas=730000001 536870974';
+    for(let i = 0; i < this.select.condiciones.length; i++){
+    condiciones += '\'' + this.select.condiciones[i].campo + '\'' + this.select.condiciones[i].realcion + '\'' + this.select.condiciones[i].valor + '\' ';
+    }
+    url += '&cCondiciones=' + condiciones;
+    this.select.url = url;
+    this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
+      this.select.rawResult = result;
+      this.select.rawToResult();
+      if(this.select.error){
+          this.retornoTec = [];
+          console.log("error");
+      }else{
+        for(let i = 0; i < 1 && i < this.select.result.length; i++){
+            for(let id of this.select.result[i].entrada){
+                let con: condicion = new condicion();
+                con.campo = id.id;
+                con.realcion = "=";
+                con.valor = id.valor;
+                this.retornoTec.push(con);
+            }
+        }
+        if(this.retornoTec.length == 0){
+          this.status = "Error en tecnologia y tipo de sitio " + this.site.nemonico + " - " + this.site.tipo + "," + this.site.tecnologia;
+          this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
+          this.finishMethod( false, "Error en la selección de tecnología y tipo de sitio");
+        }else{
+          let posible: boolean = false;
+          for(let condicion of this.retornoTec){
+            if(condicion.campo == '730000001'){
+              tecnologia = condicion.valor;
+            }else if(condicion.campo = '536870974'){
+              tipo = condicion.valor;
+            }
+          }
+          this.processValidation(tecnologia, tipo);
+        }
+      }
+    }, error =>{
+      this.status = 'Error en la consulta ' + this.site.nemonico;
+      this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
+      this.finishMethod( false, "Error de conexion a Remedy Control");
+    });
+  }
+
+  private processValidation(tecnologia: string, tipo: string){
+    this.status = 'Consultando informacion';
+    this.select = new rmdSelect();
+    let cond: condicion;
+    for(let col of environment.COL_AMX){
+        this.select.columnas.push(col);
+    }
+    cond = new condicion();
+    cond.campo = "536870913";
+    cond.realcion = "=";
+    cond.valor = tecnologia;
+    this.select.condiciones.push(cond);
+    cond = new condicion();
+    cond.campo = "536870923";
+    cond.realcion = "=";
+    cond.valor = tipo;
+    this.select.condiciones.push(cond);
+    cond = new condicion();
+    cond.campo = "1000000001";
+    cond.realcion = "=";
+    cond.valor = this.site.compania;
+    this.select.condiciones.push(cond);
+    this.select.usuario = environment.SISTEMA;
+    this.select.formulario = environment.FORM_AMX;
+    let url: string = environment.URL_SELECT;
+    let condiciones: string = "";
+    url += 'cSistema=' + environment.SISTEMA;
+    url += '&cForma=' + this.select.formulario;
+    url += '&cColumnas=' + this.select.columnas.join(' ');
+    for(let i = 0; i < this.select.condiciones.length; i++){
+    condiciones += '\'' + this.select.condiciones[i].campo + '\'' + this.select.condiciones[i].realcion + '\'' + this.select.condiciones[i].valor + '\' ';
+    }
+    url += '&cCondiciones=' + condiciones;
+    this.select.url = url;
+    this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
+      this.select.rawResult = result;
+      this.select.rawToResult();
+      if(this.select.error){
+          this.retornoTec = [];
+          console.log("error");
+      }else{
+        for(let i = 0; i < 1 && i < this.select.result.length; i++){
+            for(let id of this.select.result[i].entrada){
+                let con: condicion = new condicion();
+                con.campo = id.id;
+                con.realcion = "=";
+                con.valor = id.valor;
+                this.retornoTec.push(con);
+            }
+        }
+        if(this.retornoTec.length == 0){
+          this.status = "Error en tecnologia y tipo de sitio " + this.site.nemonico + " - " + this.site.tipo + "," + this.site.tecnologia;
+          this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
+          this.finishMethod( false, "Error en la selección de tecnología y tipo de sitio");
+        }else{
+          let posible: boolean = false;
+          for(let condicion of this.retornoTec){
+            if(condicion.campo == '536870926' && condicion.valor == environment.CATEGORIAS_EXCLUIDAS){
+              posible = false;
+            }else{
+              posible = true;
+            }
+          }
+          if(!posible){
+            this.status = "Error en tecnologia y tipo de sitio " + this.site.nemonico + " - " + this.site.tipo + "," + this.site.tecnologia;
+            this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
+            this.finishMethod( false, "Error en la selección de tecnología y tipo de sitio; No puedes cambiar el estado sitios de estas caracteristicas " + this.site.compania + " - " + tipo + "," + tecnologia + " mediante esta herramienta");
+            console.log('Se detecta que el sitio no se puede alterar');
+          }else{
+            console.log('Se detecta que el sitio se puede alterar');
+            this.processStatus();
+          }
+        }
+      }
+    }, error =>{
+      this.status = 'Error en la consulta ' + this.site.nemonico;
+      this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
+      this.finishMethod( false, "Error de conexion a Remedy Control");
+    });
+  }
+
+  private processStatus(){
     this.status = 'Comprobando sitio';
     this.select = new rmdSelect();
     let cond: condicion;
