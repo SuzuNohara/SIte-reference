@@ -263,7 +263,7 @@ export class SiteStatusComponent implements OnInit {
             if(this.site.status == 6){
               condiciones += '\'536871183\'=\'-\' ';
             }
-            condiciones += '\'536870935\'=\'Alta de sitio: ' + (new Date()) + ' - ' + this.site.crq + ' - ' + this.cookieService.get(environment.SESSION_COOKIE) + '\' ';
+            condiciones += '\'536870935\'=\'Cambio de estado de sitio: ' + (new Date()) + ' - ' + this.site.crq + ' - ' + this.cookieService.get(environment.SESSION_COOKIE) + '\' ';
             url += '&cColumnas=' + condiciones;
             update.url = url;
             this.status = "Actualizando";
