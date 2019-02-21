@@ -69,16 +69,19 @@ export class SiteStatusComponent implements OnInit {
     url += '&cForma=' + this.select.formulario;
     url += '&cColumnas=730000001 536870974';
     for(let i = 0; i < this.select.condiciones.length; i++){
-    condiciones += '\'' + this.select.condiciones[i].campo + '\'' + this.select.condiciones[i].realcion + '\'' + this.select.condiciones[i].valor + '\' ';
+      condiciones += '\'' + this.select.condiciones[i].campo + '\'' + this.select.condiciones[i].realcion + '\'' + this.select.condiciones[i].valor + '\' ';
     }
     url += '&cCondiciones=' + condiciones;
     this.select.url = url;
+    console.log(url);
     this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
       this.select.rawResult = result;
       this.select.rawToResult();
       if(this.select.error){
           this.retornoTec = [];
-          console.log("error");
+          this.status = "No se encontró el sitio";
+          this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
+          this.finishMethod( false, "No se encontró el sitio");
       }else{
         for(let i = 0; i < 1 && i < this.select.result.length; i++){
             for(let id of this.select.result[i].entrada){
@@ -146,12 +149,15 @@ export class SiteStatusComponent implements OnInit {
     }
     url += '&cCondiciones=' + condiciones;
     this.select.url = url;
+    console.log(url);
     this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
       this.select.rawResult = result;
       this.select.rawToResult();
       if(this.select.error){
           this.retornoTec = [];
-          console.log("error");
+          this.status = "No se encontró el sitio";
+          this.showClass = 'progress-bar bg-danger progress-bar-striped alta-progress';
+          this.finishMethod( false, "No se encontró el sitio");
       }else{
         for(let i = 0; i < 1 && i < this.select.result.length; i++){
             for(let id of this.select.result[i].entrada){
@@ -223,7 +229,9 @@ export class SiteStatusComponent implements OnInit {
     }
     url += '&cCondiciones=' + condiciones;
     this.select.url = url;
+    console.log(url);
     this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
+      this.retornoTec = [];
       let update: rmdUpdate = new rmdUpdate();
       this.select.rawResult = result;
       this.select.rawToResult();
@@ -267,6 +275,7 @@ export class SiteStatusComponent implements OnInit {
             url += '&cColumnas=' + condiciones;
             update.url = url;
             this.status = "Actualizando";
+            console.log(url);
             this.http.get(url).pipe(map(res => res.text())).subscribe(result => {
               if(result.indexOf('<UPDATED') >= 0){
                 this.status = "Sitio actualizado";
